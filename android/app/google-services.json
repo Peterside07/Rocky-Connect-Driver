@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1060188378643",
+    "project_id": "rockyconnectdriver",
+    "storage_bucket": "rockyconnectdriver.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060188378643:android:947642c11ecf272b3651e6",
+        "android_client_info": {
+          "package_name": "com.example.rockyconnectdriver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAylfl6ez9nxIsiSzBvfjASRPZthbnOMts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

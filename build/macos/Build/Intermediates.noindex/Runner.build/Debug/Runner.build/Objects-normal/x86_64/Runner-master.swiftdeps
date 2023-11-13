@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "33ad4a3bca3bd80d9100eb2d7a1e4cc707ac9a94e7d24adfc1b0417f29f85c6b"
+build_start_time: [1699430405, 168359994]
+build_end_time: [1699430428, 245900154]
+inputs:
+  "/Users/user/portfolio/rockyconnectdriver/macos/Flutter/GeneratedPluginRegistrant.swift": [1699430294, 496551036]
+  "/Users/user/portfolio/rockyconnectdriver/macos/Runner/AppDelegate.swift": [1666801966, 0]
+  "/Users/user/portfolio/rockyconnectdriver/macos/Runner/MainFlutterWindow.swift": [1684673725, 557387351]
