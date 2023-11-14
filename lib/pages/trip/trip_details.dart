@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -393,7 +395,8 @@ class _TripDetailsState extends State<TripDetails> {
                                 ),
                               ),
 
-                            if (widget.tripResponse.tripStatus == 'Approved' && widget.tripResponse.customerEmail != '' ||
+                            if (widget.tripResponse.tripStatus == 'Approved' &&
+                                    widget.tripResponse.customerEmail != '' ||
                                 widget.tripResponse.tripStatus == 'Completed')
                               Container(
                                   height: 200,
@@ -467,6 +470,71 @@ class _TripDetailsState extends State<TripDetails> {
                                               ),
                                             ]),
                                       ])),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                if (widget.tripResponse.driverEmail != null)
+                                  SizedBox(
+                                    height: 35,
+                                    width: 35,
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {
+                                       String commonChatRoomId = widget.tripResponse.id ?? '';
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ChatScreen(
+                                                chatRoomId: commonChatRoomId),
+                                          ),
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Icons.message,
+                                        size: 35,
+                                        color: AppColors.PRIMARY_COLOR_LIGHT,
+                                      ),
+                                    ),
+                                  ),
+                                if (widget.tripResponse.driverEmail != null)
+                                  IconButton(
+                                    padding: EdgeInsets.zero,
+                                    onPressed: () {
+                                      // _makePhoneCall(widget.tripResponse
+                                      //         .driverPhoneNumber ??
+                                      //     '');
+                                    },
+                                    icon: const Icon(
+                                      Icons.phone,
+                                      size: 35,
+                                      color: AppColors.PRIMARY_COLOR_LIGHT,
+                                    ),
+                                  ),
+                                if (widget.tripResponse.driverEmail != null &&
+                                    widget.tripResponse.tripStatus != 'Enroute')
+                                  IconButton(
+                                    padding: EdgeInsets.zero,
+                                    onPressed:
+                                        //    widget.tripResponse.tripStatus ==
+                                        //     'Enroute' &&
+                                        // widget.tripResponse.paymentId != null ? null :
+                                        () {
+                                      // Get.to(() => CancelTrip(
+                                      //     tripResponse:
+                                      //         widget.tripResponse));
+                                      // tripCtrl.cancelTrip(
+                                      //     widget.tripResponse.id ?? '');
+                                    },
+                                    icon: const Icon(
+                                      Icons.do_disturb,
+                                      size: 35,
+                                      color: AppColors.PRIMARY_COLOR_LIGHT,
+                                    ),
+                                  )
+                              ],
+                            ),
 
                             // widget.tripResponse.tripStatus != 'Approved'
                             //     ? Center(
@@ -524,7 +592,7 @@ class _TripDetailsState extends State<TripDetails> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Obx(() => PrimaryButton(
-                                    isLoading: ctrl.loading.value,
+                                        isLoading: ctrl.loading.value,
                                         height: 60,
                                         width: 120,
                                         onPressed: () {
@@ -621,5 +689,130 @@ class _TripDetailsState extends State<TripDetails> {
                 ],
               ),
             ))));
+  }
+}
+
+// ChatService.dart
+class ChatScreen extends StatefulWidget {
+  final String chatRoomId;
+
+  ChatScreen({required this.chatRoomId});
+
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _textFieldController = TextEditingController();
+
+  void sendMessage(String message) {
+    FirebaseFirestore.instance
+        .collection('chats')
+        .doc(widget.chatRoomId.toString())
+        .collection('messages')
+        .add({
+      'senderId': FirebaseAuth.instance.currentUser?.uid,
+      'message': message,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
+  }
+
+  Stream<QuerySnapshot> getChatMessages() {
+    print('Listening to Chat Messages for chatRoomId: ${widget.chatRoomId}');
+
+    return FirebaseFirestore.instance
+        .collection('chats')
+        .doc(widget.chatRoomId.toString())
+        .collection('messages')
+        .orderBy('timestamp')
+        .snapshots();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Chat'),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: StreamBuilder(
+              stream: getChatMessages(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+
+                var messages = snapshot.data!.docs;
+
+                return ListView.builder(
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    var message = messages[index];
+                    var messageText = message['message'];
+                    var messageSender = message['senderId'];
+
+                    var isCurrentUser = FirebaseAuth.instance.currentUser?.uid == messageSender;
+
+                    return Align(
+                      alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: isCurrentUser ? Colors.blue : Colors.grey,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              messageSender ?? '',
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              messageText ?? '',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _textFieldController,
+                    decoration: InputDecoration(
+                      hintText: 'Type your message...',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    sendMessage(_textFieldController.text);
+                    _textFieldController.clear();
+                  },
+                  icon: Icon(Icons.send),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
