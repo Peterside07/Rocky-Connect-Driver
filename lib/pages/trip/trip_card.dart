@@ -146,9 +146,10 @@ class TripCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        item.totalTime! > 0
-                            ? '${item.totalTime} hrs'
-                            : '30 mins',
+                       // item.totalTime! > 0
+                         //   ?
+                             '${item.totalTime} mins',
+                        //    : '30 mins',
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 10,

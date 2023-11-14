@@ -20,5 +20,7 @@ class Endpoints {
   static const START_TRIP = '/StartATrip';
   static const END_TRIP = '/EndATrip';
   static const DRIVER_UNREQUESTED_TRIPS = '/DriverUnRequestedTrips';
+  static const CANCEL_TRIP = '/CancelATrip';
+
 
 }

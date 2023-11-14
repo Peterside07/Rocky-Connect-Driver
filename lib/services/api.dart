@@ -52,8 +52,8 @@ class Api {
     return await _request(endpoint, method: 'get');
   }
 
-  Future<ApiResponse> delete(String endpoint) async {
-    return await _request(endpoint, method: 'delete');
+  Future<ApiResponse> delete(String endpoint, dynamic data) async {
+    return await _request(endpoint, method: 'delete', data: data);
   }
 
   Future<ApiResponse> _request(

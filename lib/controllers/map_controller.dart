@@ -46,14 +46,17 @@ class MapController extends GetxController {
   var customerEmail = ''.obs;
   final ctrl = Get.put(GlobalController());
 
-  double calculateTotalTime(double tripDistance) {
-    double averageSpeed = 60.0; // Average speed in kilometers per hour
+double calculateTotalTime(double tripDistance) {
+  double averageSpeed = 60.0; // Average speed in kilometers per hour
 
-    // Calculate totalTime in hours
-    double totalTime = tripDistance / averageSpeed;
-    return totalTime;
-  }
+  // Calculate totalTime in hours
+  double totalTimeInHours = tripDistance / averageSpeed;
 
+  // Convert totalTime to minutes
+  double totalTimeInMinutes = totalTimeInHours * 60.0;
+
+  return totalTimeInMinutes;
+}
   //Search for Driver
   void searchForDriver() async {
     var data = {

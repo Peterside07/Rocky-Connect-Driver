@@ -11,6 +11,7 @@ import 'package:rockyconnectdriver/widgets/buttons/primary_button.dart';
 
 import '../../theme/colors.dart';
 import '../../widgets/loaders/app_loader.dart';
+import 'cancel_trip.dart';
 
 class TripDetails extends StatefulWidget {
   final TripResponse tripResponse;
@@ -481,13 +482,15 @@ class _TripDetailsState extends State<TripDetails> {
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
                                       onPressed: () {
-                                       String commonChatRoomId = widget.tripResponse.id ?? '';
+                                        String commonChatRoomId =
+                                            widget.tripResponse.id ?? '';
 
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => ChatScreen(
-                                              tripResponse: widget.tripResponse,
+                                                tripResponse:
+                                                    widget.tripResponse,
                                                 chatRoomId: commonChatRoomId),
                                           ),
                                         );
@@ -522,9 +525,8 @@ class _TripDetailsState extends State<TripDetails> {
                                         //     'Enroute' &&
                                         // widget.tripResponse.paymentId != null ? null :
                                         () {
-                                      // Get.to(() => CancelTrip(
-                                      //     tripResponse:
-                                      //         widget.tripResponse));
+                                      Get.to(() => CancelTrip(
+                                          tripResponse: widget.tripResponse));
                                       // tripCtrl.cancelTrip(
                                       //     widget.tripResponse.id ?? '');
                                     },
@@ -658,29 +660,38 @@ class _TripDetailsState extends State<TripDetails> {
                             if (widget.tripResponse.tripStatus == 'Approved' ||
                                 widget.tripResponse.tripStatus == 'Enroute')
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Expanded(
                                     child: PrimaryButton(
                                       height: 60,
-                                      // width: 120,
-
-                                      onPressed: () {
-                                        ctrl.startTrip(
-                                            widget.tripResponse.id.toString());
-                                      },
+                                      width: 120,
+                                      onPressed:
+                                          widget.tripResponse.tripStatus ==
+                                                  'Enroute'
+                                              ? () {
+                                                  ctrl.startTrip(widget
+                                                      .tripResponse.id
+                                                      .toString());
+                                                }
+                                              : null,
                                       label: 'Start Trip',
                                     ),
                                   ),
-                                  PrimaryButton(
-                                    height: 60,
-                                    width: 120,
-                                    //  isLoading: ctrl.loading.value,
-                                    onPressed: () {
-                                      ctrl.endTrip(
-                                          widget.tripResponse.id.toString());
-                                    },
-                                    label: 'End Trip',
+                                  Expanded(
+                                    child: PrimaryButton(
+                                      height: 60,
+                                      width: 120,
+                                      //  isLoading: ctrl.loading.value,
+                                      onPressed: widget.tripResponse.tripStatus !=
+                                                  'Enroute' && widget.tripResponse.paymentId !=null
+                                              ?() {
+                                        ctrl.endTrip(
+                                            widget.tripResponse.id.toString());
+                                      }: null,
+                                      label: 'End Trip',
+                                    ),
                                   )
                                 ],
                               )
