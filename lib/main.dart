@@ -1,17 +1,24 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:rockyconnectdriver/firebase_options.dart';
 import 'package:rockyconnectdriver/pages/onboarding/splash_screen.dart';
 
 
 Position? userPosition;
 
-void main() {
+void main() async{
   
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
+  await FirebaseAuth.instance.signInAnonymously();
   Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
       .then((value) {
     log(value.toString(), name: 'position');
@@ -41,7 +48,7 @@ class MyApp extends StatelessWidget {
       child:  KeyboardDismissOnTap(
         child: GetMaterialApp(
           theme: ThemeData(primarySwatch: Colors.deepPurple),
-          title: 'RockyConnect',
+          title: 'Rocky Connect',
           home: SplashPage(),
         ),
       ),
