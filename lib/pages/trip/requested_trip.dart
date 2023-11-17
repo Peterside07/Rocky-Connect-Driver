@@ -109,7 +109,7 @@ class _RequestTripState extends State<RequestTrip> {
     } else if (segment == 'requested') {
       return buildTripListByType(ctrl.unrequestTrip);
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 
@@ -123,7 +123,8 @@ class _RequestTripState extends State<RequestTrip> {
       },
       child: ListView.builder(
         shrinkWrap: true,
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
+        // AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, i) {
           return TripCard(
             item: trips[i],

@@ -40,6 +40,8 @@ class _CancelTripState extends State<CancelTrip> {
           ),
         ),
         appBar: AppBar(
+                  centerTitle: true,
+
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(40),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:rockyconnectdriver/models/car_model.dart';
 import 'package:rockyconnectdriver/widgets/utils.dart';
 
 import '../global/endpoints.dart';
@@ -14,14 +15,25 @@ class GlobalController extends GetxController {
   var tr = {}.obs;
   var token = ''.obs;
   var user = UserModel().obs;
+  var car = CarModel().obs;
   TextEditingController oldPassword = TextEditingController(text: '');
   TextEditingController newPassword = TextEditingController(text: '');
   TextEditingController confirmPassword = TextEditingController(text: '');
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
 
+  TextEditingController carName = TextEditingController();
+  TextEditingController carType = TextEditingController();
+  TextEditingController carColor = TextEditingController();
+  TextEditingController carModel = TextEditingController();
+
+  TextEditingController plateNumber = TextEditingController();
+  TextEditingController carPreferences = TextEditingController();
+  TextEditingController driverLiscense = TextEditingController();
+
   TextEditingController email = TextEditingController();
   TextEditingController phoneCtrl = TextEditingController();
+  var carList = <CarModel>[].obs;
 
   var isLoading = false.obs;
   var password = ''.obs;
@@ -34,6 +46,9 @@ class GlobalController extends GetxController {
   var emailText = ''.obs;
   var fnText = ''.obs;
   var lnText = ''.obs;
+  var carNameText = ''.obs;
+  var carTypeText = ''.obs;
+  var carModelText = ''.obs;
 
   Rx<Position> userLocation = Position(
     accuracy: 0,
@@ -93,17 +108,33 @@ class GlobalController extends GetxController {
     lastName.text = user.value.lastName ?? '';
   }
 
-  //Get users
-  // void getUserInfo() async {
-  //   loading.value = true;
-  //   var response = await Api().get('${Endpoints.USER_API}?email${user.value.email!}');
-  //   loading.value = false;
+  void setCarForEdit() {
+    carName.text = car.value.carMake ?? '';
+    carColor.text = car.value.carColor ?? '';
+    carModel.text = car.value.carModel ?? '';
+    carType.text = car.value.typeOfVehicle ?? '';
+    plateNumber.text = car.value.plateNumber ?? '';
+    driverLiscense.text = car.value.driverLiscense ?? '';
+   // carPreferences.text = car.value.carPreferences ?? '';
+  }
 
-  //   if (response.respCode == 0) {
-  //     user.value = UserModel.fromJson(response.data);
-  //     setFieldsForEdit();
-  //   }
-  // }
+  void getCar() async {
+    final email = ctrl.email.text;
+    String encodedEmail = Uri.encodeComponent(email);
+
+    loading.value = true;
+    var res = await Api().get(
+      '${Endpoints.GET_CAR}?email=$encodedEmail',
+    );
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      car.value = CarModel.fromJson(res.data);
+      setCarForEdit();
+    } else {
+      AppAlert(message: res.respDesc).showAlert();
+    }
+  }
 
 //Update Account
   void updateAccount() async {
@@ -120,13 +151,41 @@ class GlobalController extends GetxController {
     loading.value = false;
 
     if (res.respCode == 0) {
-    //  getUserInfo();
+      //  getUserInfo();
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,
       ).showAlert();
 
       Get.to(() => HomeScreen());
+    } else {
+      AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
+//Update Car
+  void updateCar() async {
+    var data = {
+      "email": "string",
+      "carMake": carName.text,
+      "carModel": carModel.text,
+      "carColor": carColor.text,
+      "plateNumber": plateNumber.text,
+      "typeOfVehicle": carType.text,
+      "driverLiscense": driverLiscense.text,
+      "carPreferences": carPreferences.text,
+    };
+
+    loading.value = true;
+    var res = await Api().put(Endpoints.SIGN_UP, data);
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      Get.back();
+      AppAlert(
+        message: res.respDesc,
+        type: AlertType.SUCCESS,
+      ).showAlert();
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }

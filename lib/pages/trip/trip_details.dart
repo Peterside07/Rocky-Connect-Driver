@@ -1,12 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:rockyconnectdriver/controllers/map_controller.dart';
 import 'package:rockyconnectdriver/models/trip_response.dart';
+import 'package:rockyconnectdriver/pages/chat/chat_screen.dart';
 import 'package:rockyconnectdriver/widgets/buttons/primary_button.dart';
 
 import '../../theme/colors.dart';
@@ -50,7 +52,7 @@ class _TripDetailsState extends State<TripDetails> {
               padding: const EdgeInsets.all(8.0),
               child: ListView(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: [
                   const SizedBox(height: 20),
                   Container(
@@ -292,9 +294,7 @@ class _TripDetailsState extends State<TripDetails> {
                                               ),
                                             ),
                                             Text(
-                                              widget.tripResponse.totalTime! > 0
-                                                  ? '${widget.tripResponse.totalTime} hrs'
-                                                  : '30 mins',
+                                               '${widget.tripResponse.totalTime} mins',
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 10,
@@ -395,7 +395,7 @@ class _TripDetailsState extends State<TripDetails> {
                                   height: 0,
                                 ),
                               ),
-
+                      
                             if (widget.tripResponse.tripStatus == 'Approved' &&
                                     widget.tripResponse.customerEmail != '' ||
                                 widget.tripResponse.tripStatus == 'Completed')
@@ -428,7 +428,7 @@ class _TripDetailsState extends State<TripDetails> {
                                                           fontSize: 20,
                                                           color: Colors.white),
                                                     ),
-
+                      
                                                     // backgroundImage: AssetImage(""),
                                                   ),
                                                   const SizedBox(
@@ -484,7 +484,7 @@ class _TripDetailsState extends State<TripDetails> {
                                       onPressed: () {
                                         String commonChatRoomId =
                                             widget.tripResponse.id ?? '';
-
+                      
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -538,7 +538,7 @@ class _TripDetailsState extends State<TripDetails> {
                                   )
                               ],
                             ),
-
+                      
                             // widget.tripResponse.tripStatus != 'Approved'
                             //     ? Center(
                             //         child: PrimaryButton(
@@ -669,7 +669,7 @@ class _TripDetailsState extends State<TripDetails> {
                                       width: 120,
                                       onPressed:
                                           widget.tripResponse.tripStatus ==
-                                                  'Enroute'
+                                                  'Approved'
                                               ? () {
                                                   ctrl.startTrip(widget
                                                       .tripResponse.id
@@ -684,8 +684,9 @@ class _TripDetailsState extends State<TripDetails> {
                                       height: 60,
                                       width: 120,
                                       //  isLoading: ctrl.loading.value,
-                                      onPressed: widget.tripResponse.tripStatus !=
-                                                  'Enroute' && widget.tripResponse.paymentId !=null
+                                      onPressed: widget.tripResponse.tripStatus ==
+                                                  'Enroute' 
+                                               //   && widget.tripResponse.paymentId =null
                                               ?() {
                                         ctrl.endTrip(
                                             widget.tripResponse.id.toString());
@@ -705,152 +706,3 @@ class _TripDetailsState extends State<TripDetails> {
 }
 
 // ChatService.dart
-
-class ChatScreen extends StatefulWidget {
-  final String chatRoomId;
-  final TripResponse tripResponse;
-
-  ChatScreen({
-    Key? key,
-    required this.chatRoomId,
-    required this.tripResponse,
-  }) : super(key: key);
-
-  @override
-  _ChatScreenState createState() => _ChatScreenState();
-}
-
-class _ChatScreenState extends State<ChatScreen> {
-  final TextEditingController _textFieldController = TextEditingController();
-
-  void sendMessage(String message) {
-    FirebaseFirestore.instance
-        .collection('chats')
-        .doc(widget.chatRoomId.toString())
-        .collection('messages')
-        .add({
-      'senderId': FirebaseAuth.instance.currentUser?.uid,
-      'message': message,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
-  }
-
-  Stream<QuerySnapshot> getChatMessages() {
-    print('Listening to Chat Messages for chatRoomId: ${widget.chatRoomId}');
-
-    return FirebaseFirestore.instance
-        .collection('chats')
-        .doc(widget.chatRoomId.toString())
-        .collection('messages')
-        .orderBy('timestamp')
-        .snapshots();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.PRIMARY_COLOR_LIGHT,
-      appBar: AppBar(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(40),
-        )),
-        title: const Text(
-          'Chat',
-          style: TextStyle(color: Colors.white, fontSize: 14),
-        ),
-        backgroundColor: AppColors.PRIMARY_COLOR,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: StreamBuilder(
-              stream: getChatMessages(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                }
-
-                var messages = snapshot.data!.docs;
-
-                return ListView.builder(
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    var message = messages[index];
-                    var messageText = message['message'];
-                    var messageSender = message['senderId'];
-
-                    var isCurrentUser =
-                        FirebaseAuth.instance.currentUser?.uid == messageSender;
-
-                    return Align(
-                      alignment: isCurrentUser
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 16),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isCurrentUser
-                              ? Colors.white
-                              : AppColors.PRIMARY_COLOR,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-// Text(
-//   widget.tripResponse.riderFirstName != null && widget.tripResponse.riderLastName != null
-//       ? '${widget.tripResponse.riderFirstName![0].toUpperCase()}${widget.tripResponse.riderFirstName!.substring(1)} ${widget.tripResponse.riderLastName![0].toUpperCase()}${widget.tripResponse.riderLastName!.substring(1)}'
-//       : 'Unknown User',
-//   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-// ),
-                            const SizedBox(height: 4),
-                            Text(
-                              messageText ?? '',
-                              style: TextStyle(
-                                color:
-                                    isCurrentUser ? Colors.black : Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _textFieldController,
-                    decoration: const InputDecoration(
-                      hintText: 'Type your message...',
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    sendMessage(_textFieldController.text);
-                    _textFieldController.clear();
-                  },
-                  icon: const Icon(Icons.send),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

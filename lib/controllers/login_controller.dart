@@ -34,6 +34,8 @@ class LoginController extends GetxController {
     final data = {
       'email': emailAddress.value,
       'password': password.value,
+      "deviceID": ""
+
     };
 
     isLoading.value = true;
@@ -44,6 +46,7 @@ class LoginController extends GetxController {
     if (res.respCode == 0) {
       globalCtx.user.value = UserModel.fromJson(res.data);
       globalCtx.setFieldsForEdit();
+      globalCtx.getCar();
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,

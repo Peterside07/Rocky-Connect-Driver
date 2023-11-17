@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:rockyconnectdriver/global/endpoints.dart';
 import 'package:rockyconnectdriver/otp.dart';
 import 'package:rockyconnectdriver/pages/auth/forget%20password/update_password.dart';
-import 'package:rockyconnectdriver/pages/auth/signIn.dart';
+import 'package:rockyconnectdriver/pages/auth/update_car.dart';
 import 'package:rockyconnectdriver/services/api.dart';
 
 import '../models/app_alert.dart';
@@ -16,6 +16,12 @@ class SignupController extends GetxController {
   TextEditingController fnCtrl = TextEditingController(text: '');
   TextEditingController lnCtrl = TextEditingController(text: '');
   TextEditingController emailCtrl = TextEditingController(text: '');
+    TextEditingController driverLiscenseCtrl = TextEditingController(text: '');
+  TextEditingController carMakeCtrl = TextEditingController(text: '');
+  TextEditingController carModelCtrl = TextEditingController(text: ''); 
+   TextEditingController carTypeCtrl = TextEditingController(text: '');
+  TextEditingController carPlateNumberCtrl = TextEditingController(text: '');
+  TextEditingController carColorCtrl = TextEditingController(text: '');
 
   var phone = ''.obs;
   var password = ''.obs;
@@ -35,7 +41,7 @@ class SignupController extends GetxController {
       'phoneNumber': phone.value,
       'password': password.value,
       'email': emailText.value,
-      'role': 1,
+      'role': 2,
     };
 
     loading.value = true;
@@ -71,7 +77,7 @@ class SignupController extends GetxController {
         type: AlertType.SUCCESS,
       ).showAlert();
 
-      Get.to(() => SignIn());
+      Get.to(() => UpdateCar());
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }
@@ -169,4 +175,34 @@ class SignupController extends GetxController {
       AppAlert(message: res.respDesc).showAlert();
     }
   }
+
+  //Update Car
+  void updateCar() async {
+    var data = {
+      "email": "string",
+      // "carMake": carNameCtrl.text,
+      // "carModel": carModel.text,
+      // "carColor": carColor.text,
+      // "plateNumber": plateNumber.text,
+      // "typeOfVehicle": carType.text,
+      // "driverLiscense": driverLiscense.text,
+      // "carPreferences": carPreferences.text,
+
+    };
+
+    loading.value = true;
+    var res = await Api().post(Endpoints.REGISTER_CAR, data);
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      Get.back();
+      AppAlert(
+        message: res.respDesc,
+        type: AlertType.SUCCESS,
+      ).showAlert();
+    } else {
+      AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
 }

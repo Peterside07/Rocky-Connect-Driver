@@ -85,7 +85,9 @@ double calculateTotalTime(double tripDistance) {
         type: AlertType.SUCCESS,
       ).showAlert();
     } else {
-      AppAlert(message: res.respDesc).showAlert();
+      AppAlert(
+        type: AlertType.INFO,
+        message: res.respDesc).showAlert();
     }
   }
 

@@ -44,37 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBM_jo2k4CwuheQWzI76mmWU3lKg-JM3Ms',
-    appId: '1:1060188378643:web:0a23b9c8f2862e553651e6',
-    messagingSenderId: '1060188378643',
-    projectId: 'rockyconnectdriver',
-    authDomain: 'rockyconnectdriver.firebaseapp.com',
-    storageBucket: 'rockyconnectdriver.appspot.com',
+    apiKey: 'AIzaSyAJqs-KCcn3b8JkW4KU9pjN_BDrExUNKlU',
+    appId: '1:772612027831:web:8942cf6d6821aa4ddca432',
+    messagingSenderId: '772612027831',
+    projectId: 'rockyconnectride',
+    authDomain: 'rockyconnectride.firebaseapp.com',
+    storageBucket: 'rockyconnectride.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAylfl6ez9nxIsiSzBvfjASRPZthbnOMts',
-    appId: '1:1060188378643:android:947642c11ecf272b3651e6',
-    messagingSenderId: '1060188378643',
-    projectId: 'rockyconnectdriver',
-    storageBucket: 'rockyconnectdriver.appspot.com',
+    apiKey: 'AIzaSyDZ-q4fGB49W25_5x33YvU1cG3PtyBJZSI',
+    appId: '1:772612027831:android:c16cc8f7f4c7f7c2dca432',
+    messagingSenderId: '772612027831',
+    projectId: 'rockyconnectride',
+    storageBucket: 'rockyconnectride.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAGpBB7Ekak5BTMojEY8o5yYEPPzhP13E0',
-    appId: '1:1060188378643:ios:ac2aad0dd00a52df3651e6',
-    messagingSenderId: '1060188378643',
-    projectId: 'rockyconnectdriver',
-    storageBucket: 'rockyconnectdriver.appspot.com',
+    apiKey: 'AIzaSyDvQGzezINzQVT_YtuxBBhDqaE5e1WAEsw',
+    appId: '1:772612027831:ios:c2bbda3939d095ccdca432',
+    messagingSenderId: '772612027831',
+    projectId: 'rockyconnectride',
+    storageBucket: 'rockyconnectride.appspot.com',
     iosBundleId: 'com.example.rockyconnectdriver',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAGpBB7Ekak5BTMojEY8o5yYEPPzhP13E0',
-    appId: '1:1060188378643:ios:6ea6793cd2e769d33651e6',
-    messagingSenderId: '1060188378643',
-    projectId: 'rockyconnectdriver',
-    storageBucket: 'rockyconnectdriver.appspot.com',
+    apiKey: 'AIzaSyDvQGzezINzQVT_YtuxBBhDqaE5e1WAEsw',
+    appId: '1:772612027831:ios:ecf517390cb4939fdca432',
+    messagingSenderId: '772612027831',
+    projectId: 'rockyconnectride',
+    storageBucket: 'rockyconnectride.appspot.com',
     iosBundleId: 'com.example.rockyconnectdriver.RunnerTests',
   );
 }

@@ -16,11 +16,13 @@ class Endpoints {
   static const APPROVED_TRIP = '/DriverApprovedTripList';
   static const APPROVED_USER_FOR_A_TRIP = '/ApproveUserforATrip';
   static const DECLINE_USER_FOR_A_TRIP = '/DeclineUserforATrip';
-  static const REQUEST_TRIPS_AWAITING_APPROVAL = '/DriverRequestedTripsAwaitingApproval';
+  static const REQUEST_TRIPS_AWAITING_APPROVAL =
+      '/DriverRequestedTripsAwaitingApproval';
   static const START_TRIP = '/StartATrip';
   static const END_TRIP = '/EndATrip';
   static const DRIVER_UNREQUESTED_TRIPS = '/DriverUnRequestedTrips';
   static const CANCEL_TRIP = '/CancelATrip';
-
-
+  static const GET_CAR = '/GetCar';
+  static const UPDATE_CAR = '/UpdateCar';
+  static const REGISTER_CAR = '/RegisterCar';
 }

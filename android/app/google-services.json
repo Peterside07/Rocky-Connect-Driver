@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1060188378643",
-    "project_id": "rockyconnectdriver",
-    "storage_bucket": "rockyconnectdriver.appspot.com"
+    "project_number": "772612027831",
+    "project_id": "rockyconnectride",
+    "storage_bucket": "rockyconnectride.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1060188378643:android:947642c11ecf272b3651e6",
+        "mobilesdk_app_id": "1:772612027831:android:c16cc8f7f4c7f7c2dca432",
         "android_client_info": {
           "package_name": "com.example.rockyconnectdriver"
         }
@@ -15,7 +15,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAylfl6ez9nxIsiSzBvfjASRPZthbnOMts"
+          "current_key": "AIzaSyDZ-q4fGB49W25_5x33YvU1cG3PtyBJZSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772612027831:android:17d07aa09755a9b3dca432",
+        "android_client_info": {
+          "package_name": "com.example.rockyconnecttest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ-q4fGB49W25_5x33YvU1cG3PtyBJZSI"
         }
       ],
       "services": {
