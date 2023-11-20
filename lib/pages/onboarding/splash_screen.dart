@@ -10,7 +10,7 @@ import '../../models/app_alert.dart';
 import '../../services/storage.dart';
 import '../../theme/colors.dart';
 import '../../widgets/utils.dart';
-import '../auth/signIn.dart';
+import '../auth/sign_in.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({super.key});

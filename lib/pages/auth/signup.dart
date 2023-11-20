@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rockyconnectdriver/pages/auth/signIn.dart';
+import 'package:rockyconnectdriver/pages/auth/sign_in.dart';
 import 'package:rockyconnectdriver/theme/colors.dart';
 
 import '../../controllers/signup_controller.dart';

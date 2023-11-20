@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/trip_response.dart';
@@ -10,7 +9,7 @@ class ChatScreen extends StatefulWidget {
   final String chatRoomId;
   final TripResponse tripResponse;
 
-  ChatScreen({
+ const ChatScreen({
     Key? key,
     required this.chatRoomId,
     required this.tripResponse,
@@ -22,7 +21,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _textFieldController = TextEditingController();
-    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+   // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
 
   @override

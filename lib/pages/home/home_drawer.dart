@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/global_controller.dart';
 import '../account/account_page.dart';
-import '../auth/signIn.dart';
+import '../auth/sign_in.dart';
 import '../notification/notification_page.dart';
 import '../ride history/ride_history.dart';
 import '../security/reset_password.dart';
@@ -65,7 +65,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                           globalCtrl.user.value.firstName ?? '',
                           style: TextStyle(fontSize: 20, color: Colors.white),
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 8.0),
                           child: Row(
                             children: [
@@ -100,7 +100,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
               children: [
                 Padding(
                     padding: const EdgeInsets.only(
-                      top: 40.0,
+                      top: 10
                     ),
                     child: ListTile(
                         leading: const Icon(
@@ -117,7 +117,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                           Get.to(() => AccountPage());
                         })),
                 Padding(
-                  padding: const EdgeInsets.only(top: 15),
+                  padding: const EdgeInsets.only(top: 10),
                   child: ListTile(
                     leading: const Icon(
                       Icons.notifications_none_outlined,
@@ -135,7 +135,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                   ),
                 ),
                  Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 5),
+                  padding: const EdgeInsets.only(top: 10.0, left: 5),
                   child: ListTile(
                     leading: const Icon(
                       CupertinoIcons.car,
@@ -151,7 +151,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 5),
+                  padding: const EdgeInsets.only(top: 10.0, left: 5),
                   child: ListTile(
                     leading: const Icon(
                       CupertinoIcons.car,
@@ -167,7 +167,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 4),
+                  padding: const EdgeInsets.only(top: 10.0, left: 4),
                   child: ListTile(
                     leading: const Icon(
                       CupertinoIcons.creditcard,
@@ -183,7 +183,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: ListTile(
                     leading: const Icon(
                       Icons.security,
@@ -199,7 +199,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(top: 15),
+                  padding: EdgeInsets.only(top: 10),
                   child: ListTile(
                     leading: Icon(
                       Icons.help,
@@ -211,21 +211,18 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 70.0),
-                  child: ListTile(
-                      leading: const Icon(
-                        Icons.logout_outlined,
-                        size: 30,
-                      ),
-                      title: const Text(
-                        "Log Out",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      onTap: () {
-                        Get.offAll(SignIn());
-                      }),
-                )
+                ListTile(
+                    leading: const Icon(
+                      Icons.logout_outlined,
+                      size: 30,
+                    ),
+                    title: const Text(
+                      "Log Out",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onTap: () {
+                      Get.offAll(SignIn());
+                    })
               ],
             ),
           )
