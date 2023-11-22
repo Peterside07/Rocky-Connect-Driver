@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 import '../../../controllers/signup_controller.dart';
 import '../../../theme/colors.dart';
 import '../../../widgets/buttons/primary_button.dart';
@@ -16,9 +15,8 @@ class ForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(       
-                centerTitle: true,
-
+      appBar: AppBar(
+        centerTitle: true,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(40),
@@ -49,13 +47,15 @@ class ForgetPassword extends StatelessWidget {
               textCapitalization: TextCapitalization.none,
               prefixIcon: const Icon(
                 Icons.email,
-               // color: Colors.black,
+                // color: Colors.black,
               ),
             ),
-            PrimaryButton(
-              label: 'Send',
-              isLoading: ctrl.loading.value,
-              onPressed: () => ctrl.resendOtp(1),
+            Obx(
+              () => PrimaryButton(
+                label: 'Send',
+                isLoading: ctrl.loading.value,
+                onPressed: () => ctrl.resendOtp(1),
+              ),
             ),
 
             /**For the Rocky Connect */
