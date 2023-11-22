@@ -10,7 +10,7 @@ import '../../widgets/inputs/app_input.dart';
 import '../../widgets/inputs/password_input.dart';
 
 class SignUp extends StatefulWidget {
-  SignUp({super.key});
+  const SignUp({super.key});
 
   @override
   State<SignUp> createState() => _SignUpState();

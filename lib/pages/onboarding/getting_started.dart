@@ -36,7 +36,7 @@ class GettingStartedPage extends StatelessWidget {
             onPressed: () {
               StorageService().saveViewedWalkthrough();
 
-              Get.to(() => SignUp());
+              Get.to(() => const SignUp());
             },
           ),
         ],

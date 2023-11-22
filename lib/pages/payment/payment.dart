@@ -14,7 +14,6 @@ import '../../models/trip_response.dart';
 import '../../widgets/app_segment_item.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/loaders/app_loader.dart';
-import '../trip/trip_card.dart';
 import 'widget/payment_card_widget.dart';
 
 class PaymentPage extends StatefulWidget {

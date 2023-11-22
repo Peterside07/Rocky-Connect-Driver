@@ -43,9 +43,9 @@ class DeleteAccount extends StatelessWidget {
                   fontWeight: FontWeight.w300,
                 ),
               ),
-            Container(
+            const SizedBox(
                 height: 114,
-                child: const AppInput(
+                child: AppInput(
                   prefixIcon: Icon(Icons.lock),
                   placeholder: 'Tell us why you want to go...',
                   color: Colors.white,

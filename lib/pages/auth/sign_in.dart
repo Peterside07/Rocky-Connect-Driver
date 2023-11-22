@@ -118,7 +118,7 @@ class SignIn extends StatelessWidget {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        Get.to(() => SignUp());
+                                        Get.to(() => const SignUp());
                                       },
                                       child: const Text(
                                         "Sign Up",

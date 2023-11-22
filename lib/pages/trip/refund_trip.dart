@@ -33,7 +33,7 @@ class RefundTrip extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               height: 123,
               width: 123,
               child: Image.asset('assets/images/doneimage.png'),
