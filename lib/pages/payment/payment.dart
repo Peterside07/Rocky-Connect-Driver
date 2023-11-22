@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/cupertino.dart';
@@ -8,18 +9,24 @@ import 'package:rockyconnectdriver/controllers/global_controller.dart';
 import 'package:rockyconnectdriver/theme/colors.dart';
 import 'package:rockyconnectdriver/widgets/inputs/app_input.dart';
 
+import '../../controllers/trip_controller.dart';
+import '../../models/trip_response.dart';
 import '../../widgets/app_segment_item.dart';
 import '../../widgets/buttons/primary_button.dart';
+import '../../widgets/loaders/app_loader.dart';
+import '../trip/trip_card.dart';
+import 'widget/payment_card_widget.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+class PaymentPage extends StatefulWidget {
+  const PaymentPage({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<PaymentPage> createState() => _PaymentPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _PaymentPageState extends State<PaymentPage> {
   final profile = Get.put(GlobalController());
+  final ctrl = Get.put(TripController());
 
   String segment = 'profile';
 
@@ -40,7 +47,7 @@ class _AccountPageState extends State<AccountPage> {
           bottom: Radius.circular(40),
         )),
         title: const Text(
-          'Account',
+          'Payment ',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: AppColors.PRIMARY_COLOR,
@@ -60,14 +67,14 @@ class _AccountPageState extends State<AccountPage> {
                   child: CupertinoSlidingSegmentedControl(
                     children: {
                       'profile': AppSegmentItem(
-                        'Profile',
+                        'Account',
                         value: 'profile',
                         height: 50,
                         textSize: 16,
                         selectedValue: segment,
                       ),
                       'car': AppSegmentItem(
-                        'Car profile',
+                        'Payment',
                         value: 'car',
                         height: 50,
                         textSize: 16,
@@ -88,51 +95,47 @@ class _AccountPageState extends State<AccountPage> {
                               height: 20,
                             ),
                             Text(
-                              "First name",
+                              "Account Bank",
                               style: GoogleFonts.poppins(
                                 fontSize: 17,
                                 color: Colors.grey,
                               ),
                             ),
                             AppInput(
-                              controller: profile.firstName,
-                              onChanged: (val) => profile.fnText.value = val,
+                              controller: profile.acctName,
                             ),
                             Text(
-                              "Last name",
+                              "Account number ",
                               style: GoogleFonts.poppins(
                                 fontSize: 17,
                                 color: Colors.grey,
                               ),
                             ),
                             AppInput(
-                              controller: profile.lastName,
-                              onChanged: (val) => profile.lnText.value = val,
+                              controller: profile.acctNumber,
+                              keyboardType: TextInputType.number,
                             ),
                             Text(
-                              "Email Address",
+                              "Routing Number",
                               style: GoogleFonts.inter(
                                 fontSize: 17,
                                 color: Colors.grey,
                               ),
                             ),
                             AppInput(
-                              enabled: false,
-                              controller: profile.email,
+                              controller: profile.routeNumber,
+                              keyboardType: TextInputType.number,
                             ),
-                            Text(
-                              "Phone Number",
-                              style: GoogleFonts.inter(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            AppInput(
-                              controller: profile.phoneCtrl,
-                              onChanged: (val) {
-                                profile.phone.value = val;
-                              },
-                            ),
+                            // Text(
+                            //   "Account Type",
+                            //   style: GoogleFonts.inter(
+                            //     fontSize: 17,
+                            //     color: Colors.grey,
+                            //   ),
+                            // ),
+                            // AppInput(
+                            //   controller: profile.acctType,
+                            // ),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -140,7 +143,7 @@ class _AccountPageState extends State<AccountPage> {
                                 () => PrimaryButton(
                                   label: 'Save changes',
                                   isLoading: profile.loading.value,
-                                  onPressed: () => profile.updateAccount(),
+                                  onPressed: () => profile.addBank(),
                                 ),
                               ),
                             ),
@@ -149,108 +152,41 @@ class _AccountPageState extends State<AccountPage> {
                       )
                     : Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Driver Licence ID",
-                              style: GoogleFonts.inter(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            AppInput(
-                              controller: profile.driverLiscense,
-                              onChanged: (val) =>
-                                  profile.carTypeText.value = val,
-                            ),
-                            Text(
-                              "Car name",
-                              style: GoogleFonts.poppins(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            AppInput(
-                              controller: profile.carName,
-                              onChanged: (val) => profile.fnText.value = val,
-                            ),
-                            Text(
-                              "Car type",
-                              style: GoogleFonts.poppins(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            AppInput(
-                              controller: profile.carType,
-                              onChanged: (val) => profile.lnText.value = val,
-                            ),
-                            Text(
-                              "Car model",
-                              style: GoogleFonts.poppins(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            AppInput(
-                              controller: profile.carModel,
-                              onChanged: (val) => profile.lnText.value = val,
-                            ),
-                            Text(
-                              "Car color",
-                              style: GoogleFonts.inter(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            AppInput(
-                              controller: profile.carColor,
-                              onChanged: (val) =>
-                                  profile.carTypeText.value = val,
-                            ),
-                            Text(
-                              "Plate Number",
-                              style: GoogleFonts.inter(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            AppInput(
-                              controller: profile.plateNumber,
-                              onChanged: (val) =>
-                                  profile.carTypeText.value = val,
-                            ),
-                            Text(
-                              "Car Preference",
-                              style: GoogleFonts.inter(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            CarPreferenceInput(
-                              controller: profile.carPreferences,
-                              onValueChanged: (val) {
-                                profile.carTypeText.value = val;
-                              },
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Obx(
-                                () => PrimaryButton(
-                                  label: 'Update',
-                                  isLoading: profile.loading.value,
-                                  onPressed: () => profile.updateCar(),
-                                ),
-                              ),
-                            ),
-                          ],
+                        child: Obx(
+          () => AppLoader(
+            isLoading: ctrl.loading.value,
+            child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [buildTripListByType(ctrl.approvedTrip)],
+                          ),
                         ),
                       ),
-              ]),
+         )) ]),
         ),
+      ),
+    );
+  }
+
+  Widget buildTripListByType(List<TripResponse> trips) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        ctrl.fetchUnrequestedTrip();
+        ctrl.fetchApprovedTrip();
+        ctrl.fetchRequestedTrip();
+        return ctrl.fetchCompletedTrip();
+      },
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        // AlwaysScrollableScrollPhysics(),
+        itemBuilder: (context, i) {
+          return PaymentTripCard(
+            item: trips[i],
+          );
+        },
+        itemCount: trips.length,
       ),
     );
   }

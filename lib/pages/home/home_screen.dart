@@ -10,7 +10,7 @@ import 'home_drawer.dart';
 import 'select_ride.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({
+  const HomeScreen({
     Key? key,
   }) : super(key: key);
 
@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
             title: Text(
               'Welcome ${globalCtrl.user.value.firstName ?? ''}',
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
             backgroundColor: Colors.white,
           ),
@@ -140,12 +140,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => SelectRide());
+                  Get.to(() => const SelectRide());
                 },
-                child: AppInput(
+                child: const AppInput(
                   enabled: false,
                   placeholder: 'Where are you going to ?',
-                  prefixIcon: const Icon(Icons.search),
+                  prefixIcon:  Icon(Icons.search),
                 ),
               ),
             ]),

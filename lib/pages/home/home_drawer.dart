@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import '../../controllers/global_controller.dart';
 import '../account/account_page.dart';
 import '../auth/sign_in.dart';
+import '../help center/faq.dart';
 import '../notification/notification_page.dart';
+import '../payment/payment.dart';
 import '../ride history/ride_history.dart';
-import '../security/reset_password.dart';
+import '../security/security_page.dart';
 import '../trip/requested_trip.dart';
 
 class HomeDrawer extends StatelessWidget {
@@ -41,15 +43,15 @@ class HomeDrawer extends StatelessWidget {
                   CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.amber,
-                     child: Center(
-                  child: Obx(
-                    () => 
-                    Text(
-                      '${globalCtrl.user.value.lastName!.substring(0, 1)}${globalCtrl.user.value.firstName!.substring(0, 1)}',
-style: TextStyle(fontSize: 20,color: Colors.white),
-                  ),
-                  ),
-                ),
+                    child: Center(
+                      child: Obx(
+                        () => Text(
+                          '${globalCtrl.user.value.lastName!.substring(0, 1)}${globalCtrl.user.value.firstName!.substring(0, 1)}',
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white),
+                        ),
+                      ),
+                    ),
                     // backgroundImage: AssetImage(""),
                   ),
 
@@ -57,13 +59,14 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                   //Also it nest the Row for the Stars and the rating figures
 
                   Padding(
-                    padding: EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(12.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           globalCtrl.user.value.firstName ?? '',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white),
                         ),
                         const Padding(
                           padding: EdgeInsets.only(top: 8.0),
@@ -99,9 +102,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
             child: ListView(
               children: [
                 Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10
-                    ),
+                    padding: const EdgeInsets.only(top: 10),
                     child: ListTile(
                         leading: const Icon(
                           Icons.person_2_outlined,
@@ -114,7 +115,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                           ),
                         ),
                         onTap: () {
-                          Get.to(() => AccountPage());
+                          Get.to(() => const AccountPage());
                         })),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
@@ -134,7 +135,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                     },
                   ),
                 ),
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.only(top: 10.0, left: 5),
                   child: ListTile(
                     leading: const Icon(
@@ -146,7 +147,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                       style: TextStyle(fontSize: 20),
                     ),
                     onTap: () {
-                      Get.to(() =>  RequestTrip());
+                      Get.to(() => const RequestTrip());
                     },
                   ),
                 ),
@@ -154,7 +155,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                   padding: const EdgeInsets.only(top: 10.0, left: 5),
                   child: ListTile(
                     leading: const Icon(
-                      CupertinoIcons.car,
+                      CupertinoIcons.equal_square_fill,
                       size: 23,
                     ),
                     title: const Text(
@@ -178,7 +179,7 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                       style: TextStyle(fontSize: 20),
                     ),
                     onTap: () {
-                      //  Get.to(() => const NoticationPage());
+                      Get.to(() => const PaymentPage());
                     },
                   ),
                 ),
@@ -194,18 +195,21 @@ style: TextStyle(fontSize: 20,color: Colors.white),
                       style: TextStyle(fontSize: 20),
                     ),
                     onTap: () {
-                      Get.to(() => ResetPassword());
+                      Get.to(() => const SecurityPage());
                     },
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: ListTile(
-                    leading: Icon(
+                    onTap: () {
+                      Get.to(() => FAQScreen());
+                    },
+                    leading: const Icon(
                       Icons.help,
                       size: 30,
                     ),
-                    title: Text(
+                    title: const Text(
                       "Help Center",
                       style: TextStyle(fontSize: 20),
                     ),

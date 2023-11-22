@@ -18,7 +18,9 @@ class ResetPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.PRIMARY_COLOR_LIGHT,
-      appBar: AppBar(         centerTitle: true,
+      appBar: AppBar(
+                centerTitle: true,
+
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(40),
@@ -68,7 +70,7 @@ class ResetPassword extends StatelessWidget {
                   child: PrimaryButton(
                     label: 'Send',
                     isLoading: ctrl.loading.value,
-                    onPressed: ctrl.validateFields,
+                    onPressed: ctrl.validateFields
                   ),
                 ),
               ),

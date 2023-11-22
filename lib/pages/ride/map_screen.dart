@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, library_private_types_in_public_api, avoid_function_literals_in_foreach_calls, no_leading_underscores_for_local_identifiers
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:async';
@@ -56,13 +56,13 @@ class _MapScreenState extends State<MapScreen> {
         final Placemark firstPlacemark = placemarks[0];
         final String state =
             firstPlacemark.administrativeArea ?? 'State information not found';
-        print(state);
+        debugPrint(state);
         return state;
       } else {
         return 'No placemarks found';
       }
     } catch (e) {
-      print('Error: $e');
+      debugPrint('Error: $e');
       return 'Error occurred';
     }
   }
@@ -71,7 +71,7 @@ class _MapScreenState extends State<MapScreen> {
   getSourceState() async {
     ctrl.startState.value =
         await getStateFromCoordinates(ctrl.startLat.value, ctrl.startLng.value);
-    //  print(state);
+    //  debugPrint(state);
 
     setState(() {
       stateInfo = ctrl.startState.value;
@@ -85,7 +85,6 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initialPosition = CameraPosition(
       target: LatLng(widget.startPosition!.geometry!.location!.lat!,
@@ -123,7 +122,7 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Set<Marker> _markers = {
+    Set<Marker> markers = {
       Marker(
           markerId: MarkerId('start'),
           position: LatLng(widget.startPosition!.geometry!.location!.lat!,
@@ -134,13 +133,6 @@ class _MapScreenState extends State<MapScreen> {
               widget.endPosition!.geometry!.location!.lng!))
     };
 
-    void _showDatePicker() {
-      showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2000),
-          lastDate: DateTime(2050));
-    }
 
     double calculateDistance(
       double lat1,
@@ -197,12 +189,12 @@ class _MapScreenState extends State<MapScreen> {
               zoomControlsEnabled: true,
               polylines: Set<Polyline>.of(polylines.values),
               initialCameraPosition: _initialPosition,
-              markers: Set.from(_markers),
+              markers: Set.from(markers),
               onMapCreated: (GoogleMapController controller) {
                 Future.delayed(Duration(milliseconds: 2000), () {
                   controller.animateCamera(CameraUpdate.newLatLngBounds(
                       MapUtils.boundsFromLatLngList(
-                          _markers.map((loc) => loc.position).toList()),
+                          markers.map((loc) => loc.position).toList()),
                       1));
                   _getPolyline();
                 });

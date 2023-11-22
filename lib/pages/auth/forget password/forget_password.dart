@@ -55,7 +55,7 @@ class ForgetPassword extends StatelessWidget {
             PrimaryButton(
               label: 'Send',
               isLoading: ctrl.loading.value,
-              onPressed: () => ctrl.verifyOtp(),
+              onPressed: () => ctrl.resendOtp(1),
             ),
 
             /**For the Rocky Connect */

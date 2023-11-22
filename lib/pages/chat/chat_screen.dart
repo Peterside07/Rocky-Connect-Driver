@@ -1,5 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/trip_response.dart';
@@ -21,7 +24,6 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _textFieldController = TextEditingController();
-   // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
 
   @override
@@ -32,11 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
  
 
   void sendMessage(String message) {
-    // Add this block to send FCM notification for message sent
-    // _sendNotification(
-    //   'New Message',
-    //   'You have a new message from ${FirebaseAuth.instance.currentUser?.displayName ?? 'Unknown User'}',
-    // );
+ 
 
     FirebaseFirestore.instance
         .collection('chats')
@@ -47,16 +45,14 @@ class _ChatScreenState extends State<ChatScreen> {
       'message': message,
       'timestamp': FieldValue.serverTimestamp(),
     }).then((_) {
-      // Add this block to send FCM notification for message received
-      // _sendNotification(
-      //   'New Message',
-      //   '$message from ${'Unknown User'}',
-      // );
+    
     });
   }
 
+  
+
   Stream<QuerySnapshot> getChatMessages() {
-    print('Listening to Chat Messages for chatRoomId: ${widget.chatRoomId}');
+    debugPrint('Listening to Chat Messages for chatRoomId: ${widget.chatRoomId}');
 
     return FirebaseFirestore.instance
         .collection('chats')
@@ -64,6 +60,17 @@ class _ChatScreenState extends State<ChatScreen> {
         .collection('messages')
         .orderBy('timestamp')
         .snapshots();
+  }
+
+  void sendNotification(String senderId, String message) async {
+
+    RemoteMessage(
+      data: {
+        'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+        'message': message,
+        'senderId': senderId,
+      },
+    );
   }
 
 
@@ -128,12 +135,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-// Text(
-//   widget.tripResponse.riderFirstName != null && widget.tripResponse.riderLastName != null
-//       ? '${widget.tripResponse.riderFirstName![0].toUpperCase()}${widget.tripResponse.riderFirstName!.substring(1)} ${widget.tripResponse.riderLastName![0].toUpperCase()}${widget.tripResponse.riderLastName!.substring(1)}'
-//       : 'Unknown User',
-//   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-// ),
                             const SizedBox(height: 4),
                             Text(
                               messageText ?? '',

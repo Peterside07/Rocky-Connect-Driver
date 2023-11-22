@@ -33,8 +33,12 @@ class RefundTrip extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /// Image.asset('assets/images/doneimage.png'),
-
+            Container(
+              height: 123,
+              width: 123,
+              child: Image.asset('assets/images/doneimage.png'),
+            ),
+            const SizedBox(height: 10),
             const Text(
               'Trip successfully completed',
               style: TextStyle(
@@ -44,9 +48,8 @@ class RefundTrip extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-         const   SizedBox(height: 10),
-       
-          
+            const SizedBox(height: 10),
+
             /**For the Rocky Connect */
             Padding(
               padding: const EdgeInsets.only(top: 60.0),
@@ -60,14 +63,13 @@ class RefundTrip extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-              PrimaryButton(
+            PrimaryButton(
               label: 'Done',
               isLoading: ctrl.loading.value,
               onPressed: () {
-                Get.offAll(() => HomeScreen());
+                Get.offAll(() => const HomeScreen());
               },
             ),
-
           ],
         ),
       ),

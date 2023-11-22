@@ -35,7 +35,7 @@ class UpdateCar extends StatelessWidget {
             ),
             Center(
               child: Container(
-               // height: 600,
+                // height: 600,
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
@@ -53,7 +53,7 @@ class UpdateCar extends StatelessWidget {
                         ),
                       ),
                       AppInput(
-                        placeholder: 'Driver Lincence ID'.tr,
+                        placeholder: 'Driver Licence ID'.tr,
                         onChanged: (val) => ctrl.fnText.value = val,
                         controller: ctrl.driverLiscenseCtrl,
                       ),
@@ -76,51 +76,43 @@ class UpdateCar extends StatelessWidget {
                           ctrl.phone.value = val;
                         },
                       ),
-                       AppInput(
+                      AppInput(
                         placeholder: 'Plate Number'.tr,
                         controller: ctrl.carPlateNumberCtrl,
-                        
                         keyboardType: TextInputType.number,
-                      ), AppInput(
+                      ),
+                      AppInput(
                         placeholder: 'Color of Vehicle'.tr,
                         controller: ctrl.carColorCtrl,
-                       
                       ),
-                       CarPerferenceInput(
-                        
-                              controller: ctrl.carMakeCtrl,
-                              onValueChanged: (val) {
-                               // profile.carTypeText.value = val;
-                              },
-                            ),
-                         Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Expanded(
-                                    child:  Obx(
-                            () => PrimaryButton(
-                              label: 'Save',
-                              isLoading: ctrl.loading.value,
-                             onPressed: () => ctrl.updateCar(),
-                            ),
-                          ),
-                                  ),
-                                  Expanded(
-                                    child:     Obx(
-                            () => PrimaryButton(
-                              label: 'Skip',
-                              isLoading: ctrl.loading.value,
-                              onPressed: () {
-                                Get.to(SignIn());
-                              }
+                      CarPreferenceInput(
+                        controller: ctrl.carPrefenceCtrl,
+                        onValueChanged: (val) {
+                          // profile.carTypeText.value = val;
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: Obx(
+                              () => PrimaryButton(
+                                label: 'Save',
+                                isLoading: ctrl.loading.value,
+                                onPressed: () => ctrl.addCar(),
+                              ),
                             ),
                           ),
-                                  )
-                                ],
-                              )
-                    ,
-                    
+                          Expanded(
+                            child: PrimaryButton(
+                                  label: 'Skip',
+                                  onPressed: () {
+                                    Get.to(SignIn());
+                                  }
+                            ),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),

@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:rockyconnectdriver/global/endpoints.dart';
 import 'package:rockyconnectdriver/otp.dart';
 import 'package:rockyconnectdriver/pages/auth/forget%20password/update_password.dart';
+import 'package:rockyconnectdriver/pages/auth/sign_in.dart';
 import 'package:rockyconnectdriver/pages/auth/update_car.dart';
 import 'package:rockyconnectdriver/services/api.dart';
 
 import '../models/app_alert.dart';
+import 'global_controller.dart';
 
 class SignupController extends GetxController {
   TextEditingController phoneCtrl = TextEditingController(text: '');
@@ -16,12 +18,13 @@ class SignupController extends GetxController {
   TextEditingController fnCtrl = TextEditingController(text: '');
   TextEditingController lnCtrl = TextEditingController(text: '');
   TextEditingController emailCtrl = TextEditingController(text: '');
-    TextEditingController driverLiscenseCtrl = TextEditingController(text: '');
+  TextEditingController driverLiscenseCtrl = TextEditingController(text: '');
   TextEditingController carMakeCtrl = TextEditingController(text: '');
-  TextEditingController carModelCtrl = TextEditingController(text: ''); 
-   TextEditingController carTypeCtrl = TextEditingController(text: '');
+  TextEditingController carModelCtrl = TextEditingController(text: '');
+  TextEditingController carTypeCtrl = TextEditingController(text: '');
   TextEditingController carPlateNumberCtrl = TextEditingController(text: '');
   TextEditingController carColorCtrl = TextEditingController(text: '');
+  TextEditingController carPrefenceCtrl = TextEditingController(text: '');
 
   var phone = ''.obs;
   var password = ''.obs;
@@ -32,6 +35,7 @@ class SignupController extends GetxController {
   var phoneAndCode = ''.obs;
   var loading = false.obs;
   var otp = ''.obs;
+  final ctrl = Get.put(GlobalController());
 
   //Register
   void signup() async {
@@ -84,13 +88,14 @@ class SignupController extends GetxController {
   }
 
   //Resend otp
-   void resendOtp() async {
+  void resendOtp(int type) async {
     var data = {
-      'email': emailText.value,
+      'userEmail': emailText.value,
+      'otptype': type
     };
 
     loading.value = true;
-    var res = await Api().post(Endpoints.SIGN_UP, data);
+    var res = await Api().post(Endpoints.RESENDOTP, data);
     loading.value = false;
 
     if (res.respCode == 0) {
@@ -99,13 +104,13 @@ class SignupController extends GetxController {
         type: AlertType.SUCCESS,
       ).showAlert();
 
-      Get.to(() => OtpPage());
+      Get.to(() => UpdatePassword());
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }
   }
 
-    //Verify Email passwor
+  //Verify Email passwor
   void verifyemail() async {
     var data = {
       "email": emailText.value,
@@ -128,8 +133,6 @@ class SignupController extends GetxController {
     }
   }
 
-
-
   void forgetPassword() async {
     var data = {
       'password': password.value,
@@ -137,7 +140,7 @@ class SignupController extends GetxController {
     };
 
     loading.value = true;
-    var res = await Api().post(Endpoints.SIGN_UP, data);
+    var res = await Api().post(Endpoints.FORGETPASSWORD, data);
     loading.value = false;
 
     if (res.respCode == 0) {
@@ -146,22 +149,21 @@ class SignupController extends GetxController {
         type: AlertType.SUCCESS,
       ).showAlert();
 
-      Get.to(() => OtpPage());
+      Get.offAll(() => SignIn());
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }
   }
 
-
-   //Verify Email
+  //Verify Email
   void forgetPasswordVerifyEmail() async {
     var data = {
       "email": emailText.value,
-     // "code": otp.value,
+       "code": otp.value,
     };
 
     loading.value = true;
-    var res = await Api().post(Endpoints.RESENTOTP, data);
+    var res = await Api().post(Endpoints.RESENDOTP, data);
     loading.value = false;
 
     if (res.respCode == 0) {
@@ -176,18 +178,17 @@ class SignupController extends GetxController {
     }
   }
 
-  //Update Car
-  void updateCar() async {
+  //Add Car
+  void addCar() async {
     var data = {
-      "email": "string",
-      // "carMake": carNameCtrl.text,
-      // "carModel": carModel.text,
-      // "carColor": carColor.text,
-      // "plateNumber": plateNumber.text,
-      // "typeOfVehicle": carType.text,
-      // "driverLiscense": driverLiscense.text,
-      // "carPreferences": carPreferences.text,
-
+      "email": ctrl.email.text,
+      "carMake": carMakeCtrl.text,
+      "carModel": carModelCtrl.text,
+      "carColor": carColorCtrl.text,
+      "plateNumber": carPlateNumberCtrl.text,
+      "typeOfVehicle": carTypeCtrl.text,
+      "driverLiscense": driverLiscenseCtrl.text,
+      "carPreferences": carPrefenceCtrl.text,
     };
 
     loading.value = true;
@@ -195,7 +196,8 @@ class SignupController extends GetxController {
     loading.value = false;
 
     if (res.respCode == 0) {
-      Get.back();
+      Get.offAll(() => SignIn());
+
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,
@@ -205,4 +207,52 @@ class SignupController extends GetxController {
     }
   }
 
+   void verifyPasswordOtp() async {
+    var data = {
+      "email": emailText.value,
+      "code": otp.value,
+    };
+
+    loading.value = true;
+    var res = await Api().post(Endpoints.VerifyEMAIL, data);
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      AppAlert(
+        message: res.respDesc,
+        type: AlertType.SUCCESS,
+      ).showAlert();
+
+    } else {
+      AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
+  //Update Car
+  void updateCar() async {
+    var data = {
+      "email": ctrl.email.text,
+      "carMake": carMakeCtrl.text,
+      "carModel": carModelCtrl.text,
+      "carColor": carColorCtrl.text,
+      "plateNumber": carPlateNumberCtrl.text,
+      "typeOfVehicle": carTypeCtrl.text,
+      "driverLiscense": driverLiscenseCtrl.text,
+      "carPreferences": carPrefenceCtrl.text,
+    };
+
+    loading.value = true;
+    var res = await Api().put(Endpoints.UPDATE_CAR, data);
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      Get.offAll(() => SignIn());
+      AppAlert(
+        message: res.respDesc,
+        type: AlertType.SUCCESS,
+      ).showAlert();
+    } else {
+      AppAlert(message: res.respDesc).showAlert();
+    }
+  }
 }

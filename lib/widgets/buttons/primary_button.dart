@@ -40,7 +40,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(18.0),
-      child: Container(
+      child: SizedBox(
         width: width,
         height: height,
         child: ElevatedButton(
@@ -65,7 +65,7 @@ class PrimaryButton extends StatelessWidget {
                     fontSize: textSize,
                   ),
                 )
-              : LoaderIcon(),
+              : const LoaderIcon(),
         ),
       ),
     );

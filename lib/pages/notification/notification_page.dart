@@ -25,7 +25,7 @@ class NoticationPage extends StatelessWidget {
         child:ListView.builder(
   itemCount: 7, // Number of items
   itemBuilder: (context, index) {
-    return NotificationItem(
+    return const NotificationItem(
       title: 'Ride Scheduled',
       content: 'Peter resul accepted ride request',
     );
@@ -41,7 +41,7 @@ class NotificationItem extends StatelessWidget {
   final String title;
   final String content;
 
-  NotificationItem({required this.title, required this.content});
+ const NotificationItem({super.key, required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {

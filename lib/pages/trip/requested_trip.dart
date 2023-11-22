@@ -123,7 +123,7 @@ class _RequestTripState extends State<RequestTrip> {
       },
       child: ListView.builder(
         shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         // AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, i) {
           return TripCard(
@@ -143,7 +143,7 @@ class TextInfo extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
 
-  TextInfo({
+ const TextInfo({
     Key? key,
     required this.text,
     this.fontSize = 10,

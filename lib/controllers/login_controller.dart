@@ -47,12 +47,13 @@ class LoginController extends GetxController {
       globalCtx.user.value = UserModel.fromJson(res.data);
       globalCtx.setFieldsForEdit();
       globalCtx.getCar();
+      globalCtx.getBank();
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,
       ).showAlert();
 
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => const HomeScreen());
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }

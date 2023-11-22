@@ -25,7 +25,7 @@ class AppInput extends StatelessWidget {
   final double bottomMargin;
   final Color? color;
 
-  AppInput({
+  const AppInput({
     Key? key,
     this.placeholder = '',
     this.controller,

@@ -42,7 +42,7 @@ class SignIn extends StatelessWidget {
                   initialChildSize: 0.6,
                   minChildSize: 0.6,
                   maxChildSize: 1,
-                  snapSizes: [0.6, 1],
+                  snapSizes: const [0.6, 1],
                   snap: true,
                   builder: (BuildContext context, scrollSheetController) {
                     return Container(
@@ -60,8 +60,8 @@ class SignIn extends StatelessWidget {
                             child: ListView(
                               shrinkWrap: true,
                               children: [
-                                Center(
-                                  child: const Text(
+                                const Center(
+                                  child: Text(
                                     'Log In',
                                     style: TextStyle(
                                         fontSize: 16,
@@ -103,7 +103,7 @@ class SignIn extends StatelessWidget {
                                   onTap: () {
                                     Get.to(() => ForgetPassword());
                                   },
-                                  child: Center(child: const Text("Forgot Password?")),
+                                  child: const Center(child: Text("Forgot Password?")),
                                 ),
                                 const SizedBox(height: 10),
                                 Row(

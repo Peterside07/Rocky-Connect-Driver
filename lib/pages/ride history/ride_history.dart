@@ -1,5 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_full_hex_values_for_flutter_colors
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -76,6 +75,8 @@ class _TripHistoryState extends State<TripHistory> {
 }
 
 class CustomInfoCard extends StatelessWidget {
+  const CustomInfoCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -164,7 +165,7 @@ class CustomInfoCard extends StatelessWidget {
             ),
           ),
           VerticalDivider(
-            color: Color(0xff03F000000),
+            color: Color(0xff03f000000),
             thickness: 1,
             indent: 10,
             endIndent: 10,
@@ -239,7 +240,7 @@ class TextInfo extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
 
-  TextInfo({
+  const TextInfo({
     Key? key,
     required this.text,
     this.fontSize = 10,

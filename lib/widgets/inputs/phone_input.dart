@@ -8,7 +8,7 @@ class PhoneInput extends StatelessWidget {
   final Function(CountryCode)? onChangedCode;
   final Function(String)? onChanged;
 
-  PhoneInput({
+  const PhoneInput({super.key, 
     this.controller,
     this.placeholder = 'Phone number',
     this.onChangedCode,
@@ -21,14 +21,14 @@ class PhoneInput extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           width: 80,
           child: AppInput(
             controller: TextEditingController(text: '+234'),
             enabled: false,
           ),
         ),
-      SizedBox(width: 12.0),
+   const   SizedBox(width: 12.0),
         Expanded(
           flex: 1,
           child: AppInput(

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:rockyconnectdriver/global/config.dart';
 import 'package:rockyconnectdriver/models/api_response.dart';
@@ -73,7 +72,7 @@ class Api {
       );
      print(endpoint);
       print(data);
-      debugPrint(response.toString());
+      print(response.toString());
 
       if (response.data.runtimeType == List) {
         return ApiResponse({
@@ -94,7 +93,7 @@ class Api {
       print('ERROR');
       print(endpoint);
       print(err);
-      print(err.response);
+    print(err.response);
 
       if (err.type == DioErrorType.connectTimeout) {
         return ApiResponse(

@@ -40,7 +40,7 @@ class OtpPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 35.0),
+                      padding: const EdgeInsets.only(top: 35.0),
                       child: Text(
                         "Hello ${ctrl.fnText.value}, Nice to meet you",
                         style: const TextStyle(

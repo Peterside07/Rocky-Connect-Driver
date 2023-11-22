@@ -10,7 +10,7 @@ class Endpoints {
   static const SEARCH_TRIP_FOR_PASSENGER = '/SearchTripForPassenger';
   static const SCHEDULETRIP = '/ScheduleATrip';
   static const FORGETPASSWORD = '/ForgotPassword';
-  static const RESENTOTP = '/ResendOTP';
+  static const RESENDOTP = '/ResendOTP';
   static const UPCOMING_TRIP = '/UpcomingTrips';
   static const COMPLETED_TRIP = '/CompletedTrips';
   static const APPROVED_TRIP = '/DriverApprovedTripList';
@@ -23,6 +23,10 @@ class Endpoints {
   static const DRIVER_UNREQUESTED_TRIPS = '/DriverUnRequestedTrips';
   static const CANCEL_TRIP = '/CancelATrip';
   static const GET_CAR = '/GetCar';
+  static const GET_BANK = '/GetBankDetail';
   static const UPDATE_CAR = '/UpdateCar';
   static const REGISTER_CAR = '/RegisterCar';
+  static const DELETE_ACCOUNT = '/DeleteAccount';
+  static const ADD_ACCOUNT = '/RegisterBankDetail';
+
 }

@@ -119,7 +119,7 @@ double calculateTotalTime(double tripDistance) {
         type: AlertType.SUCCESS,
       ).showAlert();
 
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => const HomeScreen());
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }
@@ -139,7 +139,7 @@ double calculateTotalTime(double tripDistance) {
     loading.value = false;
 
     if (res.respCode == 0) {
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => const HomeScreen());
 
       AppAlert(
         message: res.respDesc,
@@ -164,7 +164,7 @@ double calculateTotalTime(double tripDistance) {
     loading.value = false;
 
     if (res.respCode == 0) {
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => const HomeScreen());
 
       AppAlert(
         message: res.respDesc,

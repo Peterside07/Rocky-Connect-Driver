@@ -8,7 +8,7 @@ class PasswordInput extends StatefulWidget {
   final TextEditingController? controller;
   final Function(String)? onChanged;
 
-  PasswordInput({
+  const PasswordInput({
     Key? key,
     this.placeholder = 'enter_password',
     this.controller,
@@ -40,7 +40,7 @@ class _PasswordInputState extends State<PasswordInput> {
         child: Text(
           hideText ? 'show'.tr : 'hide'.tr,
           style: TextStyle(
-            color: Get.isDarkMode ? Colors.white : Color(0xff011405),
+            color: Get.isDarkMode ? Colors.white : const Color(0xff011405),
           ),
         ),
       ),

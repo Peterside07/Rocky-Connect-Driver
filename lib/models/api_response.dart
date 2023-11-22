@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
+import 'package:flutter/material.dart';
+
 class ApiResponse {
   int? respCode;
   String respDesc = 'Something went wrong';
@@ -36,12 +40,12 @@ class ApiResponse {
     }
 
     if (data.keys.contains('body')) {
-      print('body');
+      debugPrint('body');
       dataBody = data['body'];
     }
 
     if (data.keys.contains('data')) {
-      print('data');
+      debugPrint('data');
       dataBody = data['data'];
     }
 

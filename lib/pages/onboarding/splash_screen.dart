@@ -13,7 +13,7 @@ import '../../widgets/utils.dart';
 import '../auth/sign_in.dart';
 
 class SplashPage extends StatefulWidget {
-  SplashPage({super.key});
+  const SplashPage({super.key});
 
   @override
   State<SplashPage> createState() => _SplashPageState();

@@ -81,7 +81,7 @@ class TripController extends GetxController {
   void fetchApprovedTrip() async {
     final email = ctrl.email.text;
     String encodedEmail = Uri.encodeComponent(email);
-    print(encodedEmail);
+    debugPrint(encodedEmail);
 
     loading.value = true;
     var res = await Api().get(
@@ -117,7 +117,7 @@ class TripController extends GetxController {
             .toList());
       }
     } else {
-      AppAlert(message: res.respDesc).showAlert();
+   //   AppAlert(message: res.respDesc).showAlert();
     }
   }
 

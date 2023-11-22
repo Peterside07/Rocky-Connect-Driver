@@ -1,18 +1,20 @@
-
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
 
-UserModel userFromJson(String str) => UserModel.fromJson(json.decode(str));
+UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
-String userToJson(UserModel data) => json.encode(data.toJson());
+String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-    int? userId;
     String? firstName;
     String? lastName;
     String? phoneNumber;
     String? password;
     String? email;
+    String? deviceId;
     int? role;
     int? accountVerified;
     bool? isAccountActive;
@@ -21,12 +23,12 @@ class UserModel {
     DateTime? dateVerified;
 
     UserModel({
-        this.userId,
         this.firstName,
         this.lastName,
         this.phoneNumber,
         this.password,
         this.email,
+        this.deviceId,
         this.role,
         this.accountVerified,
         this.isAccountActive,
@@ -36,32 +38,32 @@ class UserModel {
     });
 
     factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        userId: json["userID"],
         firstName: json["firstName"],
         lastName: json["lastName"],
         phoneNumber: json["phoneNumber"],
         password: json["password"],
         email: json["email"],
+        deviceId: json["deviceID"],
         role: json["role"],
         accountVerified: json["accountVerified"],
         isAccountActive: json["isAccountActive"],
-        dateCreated: DateTime.parse(json["date_Created"]),
-        dateUpdated: DateTime.parse(json["date_Updated"]),
-        dateVerified: DateTime.parse(json["date_Verified"]),
+        dateCreated: json["date_Created"] == null ? null : DateTime.parse(json["date_Created"]),
+        dateUpdated: json["date_Updated"] == null ? null : DateTime.parse(json["date_Updated"]),
+        dateVerified: json["date_Verified"] == null ? null : DateTime.parse(json["date_Verified"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "userID": userId,
         "firstName": firstName,
         "lastName": lastName,
         "phoneNumber": phoneNumber,
         "password": password,
         "email": email,
+        "deviceID": deviceId,
         "role": role,
         "accountVerified": accountVerified,
         "isAccountActive": isAccountActive,
-        "date_Created": dateCreated!.toIso8601String(),
-        "date_Updated": dateUpdated!.toIso8601String(),
-        "date_Verified": dateVerified!.toIso8601String(),
+        "date_Created": dateCreated?.toIso8601String(),
+        "date_Updated": dateUpdated?.toIso8601String(),
+        "date_Verified": dateVerified?.toIso8601String(),
     };
 }

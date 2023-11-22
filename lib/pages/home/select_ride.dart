@@ -54,7 +54,7 @@ class _SelectRideState extends State<SelectRide> {
   void autoCompleteSearch(String value) async {
     var result = await googlePlace.autocomplete.get(value);
     if (result != null && result.predictions != null && mounted) {
-      print(result.predictions!.first.description);
+      debugPrint(result.predictions!.first.description);
       setState(() {
         predictions = result.predictions!;
       });

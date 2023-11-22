@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:rockyconnectdriver/models/bank_model.dart';
 import 'package:rockyconnectdriver/models/car_model.dart';
 import 'package:rockyconnectdriver/widgets/utils.dart';
 
 import '../global/endpoints.dart';
 import '../models/app_alert.dart';
 import '../models/user_model.dart';
+import '../pages/auth/sign_in.dart';
 import '../pages/home/home_screen.dart';
 import '../services/api.dart';
 
@@ -16,6 +18,7 @@ class GlobalController extends GetxController {
   var token = ''.obs;
   var user = UserModel().obs;
   var car = CarModel().obs;
+  var bank = BankModel().obs;
   TextEditingController oldPassword = TextEditingController(text: '');
   TextEditingController newPassword = TextEditingController(text: '');
   TextEditingController confirmPassword = TextEditingController(text: '');
@@ -33,7 +36,14 @@ class GlobalController extends GetxController {
 
   TextEditingController email = TextEditingController();
   TextEditingController phoneCtrl = TextEditingController();
+
+  TextEditingController acctName = TextEditingController();
+  TextEditingController acctNumber = TextEditingController();
+  TextEditingController routeNumber = TextEditingController();
+  TextEditingController acctType = TextEditingController();
+
   var carList = <CarModel>[].obs;
+  var bankList = <BankModel>[].obs;
 
   var isLoading = false.obs;
   var password = ''.obs;
@@ -91,7 +101,7 @@ class GlobalController extends GetxController {
         message: response.respDesc,
         type: AlertType.SUCCESS,
       ).showAlert();
-      Get.to(() => HomeScreen());
+      Get.to(() => const HomeScreen());
     } else {
       Utils.showAlert(response.respDesc);
     }
@@ -115,7 +125,13 @@ class GlobalController extends GetxController {
     carType.text = car.value.typeOfVehicle ?? '';
     plateNumber.text = car.value.plateNumber ?? '';
     driverLiscense.text = car.value.driverLiscense ?? '';
-   // carPreferences.text = car.value.carPreferences ?? '';
+    // carPreferences.text = car.value.carPreferences ?? '';
+  }
+
+  void setBankForEdit() {
+    acctName.text = bank.value.bankName ?? '';
+    acctNumber.text = bank.value.accountNumber ?? '';
+    routeNumber.text = bank.value.routingNumber ?? '';
   }
 
   void getCar() async {
@@ -131,6 +147,24 @@ class GlobalController extends GetxController {
     if (res.respCode == 0) {
       car.value = CarModel.fromJson(res.data);
       setCarForEdit();
+    } else {
+      AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
+  void getBank() async {
+    final email = ctrl.email.text;
+    String encodedEmail = Uri.encodeComponent(email);
+
+    loading.value = true;
+    var res = await Api().get(
+      '${Endpoints.GET_BANK}?email=$encodedEmail',
+    );
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      bank.value = BankModel.fromJson(res.data);
+      setBankForEdit();
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }
@@ -157,7 +191,7 @@ class GlobalController extends GetxController {
         type: AlertType.SUCCESS,
       ).showAlert();
 
-      Get.to(() => HomeScreen());
+      Get.to(() => const HomeScreen());
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }
@@ -166,7 +200,7 @@ class GlobalController extends GetxController {
 //Update Car
   void updateCar() async {
     var data = {
-      "email": "string",
+      "email": ctrl.email.text,
       "carMake": carName.text,
       "carModel": carModel.text,
       "carColor": carColor.text,
@@ -177,17 +211,61 @@ class GlobalController extends GetxController {
     };
 
     loading.value = true;
-    var res = await Api().put(Endpoints.SIGN_UP, data);
+    var res = await Api().put(Endpoints.UPDATE_CAR, data);
     loading.value = false;
 
     if (res.respCode == 0) {
-      Get.back();
+      // Get.back();
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,
       ).showAlert();
     } else {
       AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
+  void addBank() async {
+    var data = {
+      "email": ctrl.email.text,
+      "accountNumber": acctNumber.text,
+      "routingNumber": routeNumber.text,
+      "bankName": acctName.text,
+    };
+
+    loading.value = true;
+    var res = await Api().post(Endpoints.ADD_ACCOUNT, data);
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      AppAlert(
+        message: res.respDesc,
+        type: AlertType.SUCCESS,
+      ).showAlert();
+    } else {
+      AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
+  //Delete account
+  void deleteAccount() async {
+    final email = ctrl.email.text;
+    String encodedEmail = Uri.encodeComponent(email);
+
+    loading.value = true;
+    var response = await Api()
+        .delete('${Endpoints.DELETE_ACCOUNT}?email=$encodedEmail', {});
+
+    loading.value = false;
+
+    if (response.respCode == 0) {
+      AppAlert(
+        message: response.respDesc,
+        type: AlertType.SUCCESS,
+      ).showAlert();
+      Get.to(() => SignIn());
+    } else {
+      Utils.showAlert(response.respDesc);
     }
   }
 }

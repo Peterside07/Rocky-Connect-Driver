@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:rockyconnectdriver/models/trip_response.dart';
-import 'package:rockyconnectdriver/pages/trip/trip_details.dart';
 
-import '../../theme/colors.dart';
+import '../../../models/trip_response.dart';
+import '../../../theme/colors.dart';
 
-class TripCard extends StatelessWidget {
+class PaymentTripCard extends StatelessWidget {
   final TripResponse item;
   final Function(TripResponse)? onSelect;
-  const TripCard({
+  const PaymentTripCard({
     Key? key,
     required this.item,
     this.onSelect,
@@ -18,15 +16,7 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onSelect != null
-          ? () {
-              onSelect!(item);
-            }
-          : () {
-              Get.to(() => TripDetails(
-                    tripResponse: item,
-                  ));
-            },
+   
       child: Container(
         width: 406,
         height: 103,
@@ -129,12 +119,12 @@ class TripCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 18.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Text(
                         'Total time',
@@ -146,9 +136,9 @@ class TripCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                       // item.totalTime! > 0
-                         //   ?
-                             '${item.totalTime} mins',
+                        // item.totalTime! > 0
+                        //   ?
+                        '${item.totalTime} mins',
                         //    : '30 mins',
                         style: const TextStyle(
                           color: Colors.black,
@@ -160,11 +150,11 @@ class TripCard extends StatelessWidget {
                     ],
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Text(
-                        'Total Cost',
+                        'Payment Status',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 10,
@@ -172,14 +162,23 @@ class TripCard extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      Text(
-                        '\$${item.tripCost}',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 10,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            item.paymentId != null ? 'Paid' : 'Not paid',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 10,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          if (item.paymentId == null)
+                            const Icon(
+                              Icons.notifications,
+                              color: AppColors.PRIMARY_COLOR,
+                            )
+                        ],
                       ),
                     ],
                   ),
@@ -188,33 +187,6 @@ class TripCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class TextInfo extends StatelessWidget {
-  final String text;
-  final double fontSize;
-  final FontWeight fontWeight;
-
- const TextInfo({
-    Key? key,
-    required this.text,
-    this.fontSize = 10,
-    this.fontWeight = FontWeight.normal,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: fontSize,
-        fontFamily: 'Poppins',
-        fontWeight: fontWeight,
-        height: 0,
       ),
     );
   }

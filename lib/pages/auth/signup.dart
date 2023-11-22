@@ -9,10 +9,49 @@ import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/inputs/app_input.dart';
 import '../../widgets/inputs/password_input.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   SignUp({super.key});
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
   final ctrl = Get.put(SignupController());
+
+  late String _password;
+  double _strength = 0;
+
+  RegExp numReg = RegExp(r".*[0-9].*");
+  RegExp letterReg = RegExp(r".*[A-Za-z].*");
+
+  void _checkPassword(String value) {
+    _password = value.trim();
+
+    if (_password.isEmpty) {
+      setState(() {
+        _strength = 0;
+      });
+    } else if (_password.length < 6) {
+      setState(() {
+        _strength = 1 / 4;
+      });
+    } else if (_password.length < 8) {
+      setState(() {
+        _strength = 2 / 4;
+      });
+    } else {
+      if (!letterReg.hasMatch(_password) || !numReg.hasMatch(_password)) {
+        setState(() {
+          _strength = 3 / 4;
+        });
+      } else {
+        setState(() {
+          _strength = 1;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +122,23 @@ class SignUp extends StatelessWidget {
                         placeholder: 'Please Enter your password'.tr,
                         controller: ctrl.passwordCtrl,
                         onChanged: (val) {
+                          _checkPassword(val);
                           ctrl.password.value = val;
                         },
+                      ),
+                      LinearProgressIndicator(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
+                        value: _strength,
+                        backgroundColor: Colors.grey[300],
+                        color: _strength <= 1 / 4
+                            ? Colors.red
+                            : _strength == 2 / 4
+                                ? Colors.yellow
+                                : _strength == 3 / 4
+                                    ? Colors.blue
+                                    : Colors.green,
+                        minHeight: 7,
                       ),
                       Obx(
                         () => PrimaryButton(
@@ -104,7 +158,7 @@ class SignUp extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Get.to(() =>  SignIn());
+                              Get.to(() => SignIn());
                             },
                             child: const Text(
                               "Log in",

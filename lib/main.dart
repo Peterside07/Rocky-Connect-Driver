@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
           theme: ThemeData(primarySwatch: Colors.deepPurple),
           title: 'Rocky Connect',
-          home: SplashPage(),
+          home: const SplashPage(),
         ),
       ),
     );

@@ -396,7 +396,7 @@ class _TripDetailsState extends State<TripDetails> {
                             if (widget.tripResponse.tripStatus == 'Approved' &&
                                     widget.tripResponse.customerEmail != '' ||
                                 widget.tripResponse.tripStatus == 'Completed')
-                              Container(
+                              SizedBox(
                                   height: 200,
                                   child: Column(
                                       mainAxisAlignment:
@@ -543,7 +543,7 @@ class _TripDetailsState extends State<TripDetails> {
                             //           width: 247,
                             //           onPressed: () {
                             //             //  Get.offAll(HomeScreen());
-                            //             print(widget.tripResponse.id);
+                            //             debugPrint(widget.tripResponse.id);
                             //           },
                             //           label: 'Done',
                             //         ),
@@ -558,25 +558,27 @@ class _TripDetailsState extends State<TripDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  PrimaryButton(
-                                    height: 60,
-                                    width: 120,
-                                    isLoading: ctrl.loading.value,
-                                    onPressed: () {
-                                      ctrl.idTrip.value =
-                                          widget.tripResponse.id ?? "";
-                                      ctrl.customerEmail.value =
-                                          widget.tripResponse.customerEmail ??
-                                              '';
-                                      ctrl.approveTrip();
-                                      //  Get.offAll(HomeScreen());
-                                    },
-                                    label: 'Approve',
+                                  Expanded(
+                                    child: PrimaryButton(
+                                      height: 60,
+                                      width: 120,
+                                      isLoading: ctrl.loading.value,
+                                      onPressed: () {
+                                        ctrl.idTrip.value =
+                                            widget.tripResponse.id ?? "";
+                                        ctrl.customerEmail.value =
+                                            widget.tripResponse.customerEmail ??
+                                                '';
+                                        ctrl.approveTrip();
+                                        //  Get.offAll(HomeScreen());
+                                      },
+                                      label: 'Approve',
+                                    ),
                                   ),
                                   Expanded(
                                     child: PrimaryButton(
                                       height: 60,
-                                      //    width: 120,
+                                      width: 120,
                                       onPressed: () {
                                         Get.back();
                                       },
@@ -591,25 +593,27 @@ class _TripDetailsState extends State<TripDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Obx(() => PrimaryButton(
-                                        isLoading: ctrl.loading.value,
-                                        height: 60,
-                                        width: 120,
-                                        onPressed: () {
-                                          ctrl.idTrip.value =
-                                              widget.tripResponse.id ?? "";
-                                          ctrl.customerEmail.value = widget
-                                                  .tripResponse.customerEmail ??
-                                              '';
-                                          ctrl.approveTrip();
-                                          //  Get.offAll(HomeScreen());
-                                        },
-                                        label: 'Approve',
-                                      )),
+                                  Obx(() => Expanded(
+                                    child: PrimaryButton(
+                                          isLoading: ctrl.loading.value,
+                                          height: 60,
+                                          width: 120,
+                                          onPressed: () {
+                                            ctrl.idTrip.value =
+                                                widget.tripResponse.id ?? "";
+                                            ctrl.customerEmail.value = widget
+                                                    .tripResponse.customerEmail ??
+                                                '';
+                                            ctrl.approveTrip();
+                                            //  Get.offAll(HomeScreen());
+                                          },
+                                          label: 'Approve',
+                                        ),
+                                  )),
                                   Expanded(
                                     child: PrimaryButton(
                                       height: 60,
-                                      //    width: 120,
+                                          width: 120,
                                       onPressed: () {
                                         ctrl.idTrip.value =
                                             widget.tripResponse.id ?? "";
@@ -629,23 +633,26 @@ class _TripDetailsState extends State<TripDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  PrimaryButton(
-                                    height: 60,
-                                    // width: 120,
-                                    onPressed: () {
-                                      ctrl.idTrip.value =
-                                          widget.tripResponse.id ?? "";
-                                      ctrl.customerEmail.value =
-                                          widget.tripResponse.customerEmail ??
-                                              '';
-                                      //  ctrl.approveTrip();
-                                      //  Get.offAll(HomeScreen());
-                                    },
-                                    label: 'Update',
+                                  Expanded(
+                                    child: PrimaryButton(
+                                      height: 60,
+                                       width: 120,
+                                      onPressed: () {
+                                        ctrl.idTrip.value =
+                                            widget.tripResponse.id ?? "";
+                                        ctrl.customerEmail.value =
+                                            widget.tripResponse.customerEmail ??
+                                                '';
+                                        //  ctrl.approveTrip();
+                                        //  Get.offAll(HomeScreen());
+                                      },
+                                      label: 'Update',
+                                    ),
                                   ),
                                   Expanded(
                                     child: PrimaryButton(
                                       height: 60,
+                                      width: 120,
                                       onPressed: () {
                                         Get.back();
                                       },

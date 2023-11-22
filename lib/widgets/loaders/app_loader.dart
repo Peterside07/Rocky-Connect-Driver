@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -9,7 +11,7 @@ class AppLoader extends StatelessWidget {
   final bool isLoading;
   final Widget child;
 
-  AppLoader({this.message = '', this.isLoading = false, required this.child});
+  const AppLoader({super.key, this.message = '', this.isLoading = false, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class AppLoader extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    message.isNotEmpty ? '$message' : '${'please wait'.tr}...',
+                    message.isNotEmpty ? message : '${'please wait'.tr}...',
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1

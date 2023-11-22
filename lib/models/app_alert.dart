@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names, deprecated_member_use
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -16,13 +18,13 @@ class AppAlert extends StatelessWidget {
 
   final globalCtx = Get.put(GlobalController());
 
-  AppAlert({
+  AppAlert({super.key, 
     this.title = '',
     required this.message,
     this.type = AlertType.ERROR,
   });
 
-  final textStyle = TextStyle(fontWeight: FontWeight.w700);
+  final textStyle = const TextStyle(fontWeight: FontWeight.w700);
 
   String getTitle() {
     switch (type) {
@@ -44,13 +46,13 @@ class AppAlert extends StatelessWidget {
                 ? AppColors.PRIMARY_COLOR
                 : Colors.green,
         title: title.isEmpty ? getTitle() : title,
-        icon: Icon(Icons.error_outline_rounded),
-        duration: Duration(seconds: 3),
+        icon: const Icon(Icons.error_outline_rounded),
+        duration: const Duration(seconds: 3),
         snackPosition: SnackPosition.BOTTOM,
         isDismissible: true,
         onTap: (obj) => Get.back(),
         message: message,
-        messageText: Text(message, style: TextStyle(color: Colors.white) ),
+        messageText: Text(message, style: const TextStyle(color: Colors.white) ),
         
       ),
     );
@@ -61,7 +63,7 @@ class AppAlert extends StatelessWidget {
     return Platform.isAndroid
         ? AlertDialog(
             title: Text(
-              title.isEmpty ? 'error'.tr : '$title',
+              title.isEmpty ? 'error'.tr : title,
             ),
             content: Text(message),
             actions: [
@@ -80,11 +82,11 @@ class AppAlert extends StatelessWidget {
             ],
           )
         : CupertinoAlertDialog(
-            title: Text(title.isEmpty ? 'error'.tr : '$title'),
+            title: Text(title.isEmpty ? 'error'.tr : title),
             content: Padding(
               padding: const EdgeInsets.only(top: 10.0),
               child: Text(
-                '$message',
+                message,
               ),
             ),
             actions: [
