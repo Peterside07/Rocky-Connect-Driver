@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'controllers/signup_controller.dart';
-import 'widgets/buttons/primary_button.dart';
-import 'widgets/inputs/app_input.dart';
+import '../../controllers/signup_controller.dart';
+import '../../widgets/buttons/primary_button.dart';
+import '../../widgets/inputs/app_input.dart';
 
 class OtpPage extends StatelessWidget {
   OtpPage({super.key});

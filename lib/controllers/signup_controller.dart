@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rockyconnectdriver/global/endpoints.dart';
-import 'package:rockyconnectdriver/otp.dart';
+import 'package:rockyconnectdriver/pages/auth/otp.dart';
 import 'package:rockyconnectdriver/pages/auth/forget%20password/update_password.dart';
 import 'package:rockyconnectdriver/pages/auth/sign_in.dart';
 import 'package:rockyconnectdriver/pages/auth/update_car.dart';
