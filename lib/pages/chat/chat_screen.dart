@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/trip_response.dart';
+import '../../services/firebase_api.dart';
 import '../../theme/colors.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -35,7 +36,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void sendMessage(String message) {
  
-
     FirebaseFirestore.instance
         .collection('chats')
         .doc(widget.chatRoomId.toString())
@@ -44,9 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
       'senderId': FirebaseAuth.instance.currentUser?.uid,
       'message': message,
       'timestamp': FieldValue.serverTimestamp(),
-    }).then((_) {
-    
-    });
+    }).then((value) => FirebaseApi.sendPushNotification(widget.tripResponse.deviceId, message ));
   }
 
   

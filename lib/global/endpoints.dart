@@ -28,5 +28,7 @@ class Endpoints {
   static const REGISTER_CAR = '/RegisterCar';
   static const DELETE_ACCOUNT = '/DeleteAccount';
   static const ADD_ACCOUNT = '/RegisterBankDetail';
+  static const NOTIFICATION = '/api/Notification/GetNotification';
+
 
 }

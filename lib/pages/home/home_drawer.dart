@@ -131,7 +131,7 @@ class HomeDrawer extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      Get.to(() => const NoticationPage());
+                      Get.to(() =>  NoticationPage());
                     },
                   ),
                 ),

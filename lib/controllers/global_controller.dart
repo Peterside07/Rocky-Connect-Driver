@@ -7,6 +7,7 @@ import 'package:rockyconnectdriver/widgets/utils.dart';
 
 import '../global/endpoints.dart';
 import '../models/app_alert.dart';
+import '../models/notification_model.dart';
 import '../models/user_model.dart';
 import '../pages/auth/sign_in.dart';
 import '../pages/home/home_screen.dart';
@@ -59,6 +60,15 @@ class GlobalController extends GetxController {
   var carNameText = ''.obs;
   var carTypeText = ''.obs;
   var carModelText = ''.obs;
+  var notificationList= <NotificationModel>[].obs;
+
+  // @override
+  // void onReady() {
+  //   getNotificationList();
+  //   getCar();
+  //   getBank();
+  //   super.onReady();
+  // }
 
   Rx<Position> userLocation = Position(
     accuracy: 0,
@@ -148,7 +158,7 @@ class GlobalController extends GetxController {
       car.value = CarModel.fromJson(res.data);
       setCarForEdit();
     } else {
-      AppAlert(message: res.respDesc).showAlert();
+     // AppAlert(message: res.respDesc).showAlert();
     }
   }
 
@@ -166,7 +176,7 @@ class GlobalController extends GetxController {
       bank.value = BankModel.fromJson(res.data);
       setBankForEdit();
     } else {
-      AppAlert(message: res.respDesc).showAlert();
+     // AppAlert(message: res.respDesc).showAlert();
     }
   }
 
@@ -266,6 +276,25 @@ class GlobalController extends GetxController {
       Get.to(() => SignIn());
     } else {
       Utils.showAlert(response.respDesc);
+    }
+  }
+
+    void getNotificationList() async {
+    final email = ctrl.email.text;
+    String encodedEmail = Uri.encodeComponent(email);
+    loading.value = true;
+    var res = await Api()
+        .get('${Endpoints.NOTIFICATION}?email=$encodedEmail');
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      if (res.data != null) {
+        notificationList.assignAll((res.data as List)
+            .map((item) => NotificationModel.fromJson(item))
+            .toList());
+      }
+    } else {
+      // AppAlert(message: res.respDesc).showAlert();
     }
   }
 }

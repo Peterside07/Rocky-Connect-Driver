@@ -18,13 +18,13 @@ class TripResponse {
     String? sourceLatitude;
     String? destinationLong;
     String? destinationLat;
-    String? destinationState;
+    dynamic destinationState;
     int? tripDistance;
     int? tripCost;
     String? tripInitiator;
     dynamic paymentId;
     String? tripStatus;
-    String? cancelReason;
+    dynamic cancelReason;
     int? totalTime;
     DateTime? tripDate;
     String? driverFirstName;
@@ -35,13 +35,14 @@ class TripResponse {
     String? riderPhoneNumber;
     int? rating;
     int? noOfRides;
-    dynamic carMake;
-    dynamic carModel;
-    dynamic carColor;
-    dynamic plateNumber;
-    dynamic typeOfVehicle;
-    dynamic driverLiscense;
-    dynamic carPreferences;
+    String? carMake;
+    String? carModel;
+    String? carColor;
+    String? plateNumber;
+    String? typeOfVehicle;
+    String? driverLiscense;
+    String? carPreferences;
+    String? deviceId;
 
     TripResponse({
         this.id,
@@ -77,6 +78,7 @@ class TripResponse {
         this.typeOfVehicle,
         this.driverLiscense,
         this.carPreferences,
+        this.deviceId,
     });
 
     factory TripResponse.fromJson(Map<String, dynamic> json) => TripResponse(
@@ -113,6 +115,7 @@ class TripResponse {
         typeOfVehicle: json["typeOfVehicle"],
         driverLiscense: json["driverLiscense"],
         carPreferences: json["carPreferences"],
+        deviceId: json["deviceID"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -149,5 +152,6 @@ class TripResponse {
         "typeOfVehicle": typeOfVehicle,
         "driverLiscense": driverLiscense,
         "carPreferences": carPreferences,
+        "deviceID": deviceId,
     };
 }

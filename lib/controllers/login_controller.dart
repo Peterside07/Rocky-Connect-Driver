@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rockyconnectdriver/global/endpoints.dart';
+import 'package:rockyconnectdriver/services/token.dart';
 import '../models/app_alert.dart';
 import '../models/user_model.dart';
 import '../pages/home/home_screen.dart';
@@ -34,7 +35,7 @@ class LoginController extends GetxController {
     final data = {
       'email': emailAddress.value,
       'password': password.value,
-      "deviceID": ""
+      'deviceID': TokenService.fcmToken,
 
     };
 
@@ -48,6 +49,8 @@ class LoginController extends GetxController {
       globalCtx.setFieldsForEdit();
       globalCtx.getCar();
       globalCtx.getBank();
+      globalCtx.getNotificationList();
+
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,

@@ -1,14 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
+
+import '../../controllers/global_controller.dart';
+import '../../models/notification_model.dart';
 import '../../theme/colors.dart';
+import '../../widgets/loaders/app_loader.dart';
 
 class NoticationPage extends StatelessWidget {
-  const NoticationPage({super.key});
+  NoticationPage({super.key});
+  final ctrl = Get.put(GlobalController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(         centerTitle: true,
+      backgroundColor: AppColors.PRIMARY_COLOR_LIGHT,
+      appBar: AppBar(
+        centerTitle: true,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(40),
@@ -19,50 +29,50 @@ class NoticationPage extends StatelessWidget {
         ),
         backgroundColor: AppColors.PRIMARY_COLOR,
       ),
-  
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child:ListView.builder(
-  itemCount: 7, // Number of items
-  itemBuilder: (context, index) {
-    return const NotificationItem(
-      title: 'Ride Scheduled',
-      content: 'Peter resul accepted ride request',
-    );
-  },
-)
-      ),
-    );
+      body: Obx(() => AppLoader(
+        isLoading: ctrl.loading.value,
+        child:Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.builder(
+            itemCount: ctrl.notificationList.length,
+            itemBuilder: (context, i) {
+              return NotificationItem(
+                item: ctrl.notificationList[i],
+              );
+            },
+          )),
+    )));
   }
 }
 
-
 class NotificationItem extends StatelessWidget {
-  final String title;
-  final String content;
+  final NotificationModel item;
 
- const NotificationItem({super.key, required this.title, required this.content});
+  NotificationItem({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 406,
-      height: 103,
+      //width: 406,
+      //  height: 103,
       margin: const EdgeInsets.all(10),
       decoration: ShapeDecoration(
-        color: const Color(0xFFE5CBFF),
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 30.0, top: 14),
+        padding: const EdgeInsets.only(left: 20.0, top: 14),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title,
+              item.title ?? '',
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 14,
@@ -72,26 +82,25 @@ class NotificationItem extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              content,
+              item.body ?? '',
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 14,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w300,
-                height: 0,
               ),
             ),
             const SizedBox(height: 6),
-            const Text(
-              'just now...',
+            Text(
+              DateFormat('dd MMMM yyyy HH:mm').format(item.dateSent!),
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 12,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w400,
-                height: 0,
               ),
-            )
+            ),
+            const SizedBox(height: 16),
           ],
         ),
       ),

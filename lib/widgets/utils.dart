@@ -10,7 +10,8 @@ class Utils {
     return BoxShadow(
       offset: const Offset(0, 3),
       blurRadius: 26,
-      color: Get.isDarkMode ? Colors.black : const Color.fromRGBO(0, 0, 0, 0.15),
+      color:
+          Get.isDarkMode ? Colors.black : const Color.fromRGBO(0, 0, 0, 0.15),
     );
   }
 
@@ -25,6 +26,13 @@ class Utils {
             ?.copyWith(fontSize: 17, fontWeight: FontWeight.bold),
       ),
     );
+  }
+
+  static String capitalize(String s) {
+    if (s.isEmpty) {
+      return s;
+    }
+    return s[0].toUpperCase() + s.substring(1);
   }
 
   static showAlert(
