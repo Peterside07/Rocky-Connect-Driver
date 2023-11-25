@@ -30,48 +30,50 @@ class DeleteAccount extends StatelessWidget {
       ),
       body: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            //    mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                'we are sad to see you go...',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w300,
+          child: SingleChildScrollView(
+            child: Column(
+              //    mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'we are sad to see you go...',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
-              ),
-            const SizedBox(
-                height: 114,
-                child: AppInput(
-                  prefixIcon: Icon(Icons.lock),
-                  placeholder: 'Tell us why you want to go...',
+              const SizedBox(
+                  height: 114,
+                  child: AppInput(
+                    prefixIcon: Icon(Icons.lock),
+                    placeholder: 'Tell us why you want to go...',
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 50),
+                AppInput(
                   color: Colors.white,
+                  placeholder: 'Enter your email ',
+                 controller: ctrl.email,
                 ),
-              ),
-              const SizedBox(height: 50),
-              AppInput(
-                color: Colors.white,
-                placeholder: 'Enter your email ',
-               controller: ctrl.email,
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Text(
-                  "Rocky Connect",
-                  style: GoogleFonts.tourney(fontSize: 45, color: Colors.white),
+                const SizedBox(height: 20),
+                Center(
+                  child: Text(
+                    "Rocky Connect",
+                    style: GoogleFonts.tourney(fontSize: 45, color: Colors.white),
+                  ),
                 ),
-              ),
-              Obx(
-                () => PrimaryButton(
-                  label: 'Delete',
-                  isLoading: ctrl.loading.value,
-                  onPressed: ctrl.deleteAccount,
-                ),
-              )
-            ],
+                Obx(
+                  () => PrimaryButton(
+                    label: 'Delete',
+                    isLoading: ctrl.loading.value,
+                    onPressed: ctrl.deleteAccount,
+                  ),
+                )
+              ],
+            ),
           )),
     );
   }

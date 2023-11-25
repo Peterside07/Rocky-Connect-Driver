@@ -8,6 +8,7 @@ import 'package:rockyconnectdriver/pages/auth/update_car.dart';
 import 'package:rockyconnectdriver/services/api.dart';
 
 import '../models/app_alert.dart';
+import '../pages/auth/update_bank.dart';
 import 'global_controller.dart';
 
 class SignupController extends GetxController {
@@ -181,7 +182,7 @@ class SignupController extends GetxController {
   //Add Car
   void addCar() async {
     var data = {
-      "email": ctrl.email.text,
+      "email": emailText.value,
       "carMake": carMakeCtrl.text,
       "carModel": carModelCtrl.text,
       "carColor": carColorCtrl.text,
@@ -196,7 +197,7 @@ class SignupController extends GetxController {
     loading.value = false;
 
     if (res.respCode == 0) {
-      Get.offAll(() => SignIn());
+      Get.to(() => UpdateBank());
 
       AppAlert(
         message: res.respDesc,

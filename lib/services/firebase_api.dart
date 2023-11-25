@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, depend_on_referenced_packages
 
 import 'dart:convert';
 import 'dart:developer';
@@ -6,11 +6,9 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:rockyconnectdriver/widgets/utils.dart';
 import 'package:http/http.dart';
 
 
-import '../models/trip_response.dart';
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   debugPrint('Title: ${message.notification?.title}');

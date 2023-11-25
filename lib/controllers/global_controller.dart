@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:rockyconnectdriver/controllers/signup_controller.dart';
 import 'package:rockyconnectdriver/models/bank_model.dart';
 import 'package:rockyconnectdriver/models/car_model.dart';
 import 'package:rockyconnectdriver/widgets/utils.dart';
@@ -60,15 +61,8 @@ class GlobalController extends GetxController {
   var carNameText = ''.obs;
   var carTypeText = ''.obs;
   var carModelText = ''.obs;
-  var notificationList= <NotificationModel>[].obs;
+  var notificationList = <NotificationModel>[].obs;
 
-  // @override
-  // void onReady() {
-  //   getNotificationList();
-  //   getCar();
-  //   getBank();
-  //   super.onReady();
-  // }
 
   Rx<Position> userLocation = Position(
     accuracy: 0,
@@ -135,7 +129,6 @@ class GlobalController extends GetxController {
     carType.text = car.value.typeOfVehicle ?? '';
     plateNumber.text = car.value.plateNumber ?? '';
     driverLiscense.text = car.value.driverLiscense ?? '';
-    // carPreferences.text = car.value.carPreferences ?? '';
   }
 
   void setBankForEdit() {
@@ -158,7 +151,6 @@ class GlobalController extends GetxController {
       car.value = CarModel.fromJson(res.data);
       setCarForEdit();
     } else {
-     // AppAlert(message: res.respDesc).showAlert();
     }
   }
 
@@ -176,7 +168,6 @@ class GlobalController extends GetxController {
       bank.value = BankModel.fromJson(res.data);
       setBankForEdit();
     } else {
-     // AppAlert(message: res.respDesc).showAlert();
     }
   }
 
@@ -225,7 +216,6 @@ class GlobalController extends GetxController {
     loading.value = false;
 
     if (res.respCode == 0) {
-      // Get.back();
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,
@@ -236,8 +226,10 @@ class GlobalController extends GetxController {
   }
 
   void addBank() async {
+      final ctrl = Get.put(SignupController());
+
     var data = {
-      "email": ctrl.email.text,
+      "email": ctrl.emailText.value,
       "accountNumber": acctNumber.text,
       "routingNumber": routeNumber.text,
       "bankName": acctName.text,
@@ -248,12 +240,14 @@ class GlobalController extends GetxController {
     loading.value = false;
 
     if (res.respCode == 0) {
+      Get.offAll(() => SignIn());
+
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,
       ).showAlert();
     } else {
-      AppAlert(message: res.respDesc).showAlert();
+     // AppAlert(message: res.respDesc).showAlert();
     }
   }
 
@@ -279,12 +273,11 @@ class GlobalController extends GetxController {
     }
   }
 
-    void getNotificationList() async {
+  void getNotificationList() async {
     final email = ctrl.email.text;
     String encodedEmail = Uri.encodeComponent(email);
     loading.value = true;
-    var res = await Api()
-        .get('${Endpoints.NOTIFICATION}?email=$encodedEmail');
+    var res = await Api().get('${Endpoints.NOTIFICATION}?email=$encodedEmail');
     loading.value = false;
 
     if (res.respCode == 0) {
@@ -295,6 +288,47 @@ class GlobalController extends GetxController {
       }
     } else {
       // AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
+  void paymentReminder(String id, String email) async {
+    String encodedEmail = Uri.encodeComponent(email);
+
+    loading.value = true;
+    var res = await Api().post(
+      '${Endpoints.PAYEMENT_REMINDER}?email=$encodedEmail?&tripId=$id',
+      {},
+    );
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      Get.back();
+
+      AppAlert(message: res.respDesc).showAlert();
+    } else {
+      // AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
+  void updateBank() async {
+    var data = {
+      "email": ctrl.email.text,
+      "accountNumber": acctNumber.text,
+      "routingNumber": routeNumber.text,
+      "bankName": acctName.text,
+    };
+
+    loading.value = true;
+    var res = await Api().put(Endpoints.UPDATE_BANK_DETAIL, data);
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      AppAlert(
+        message: res.respDesc,
+        type: AlertType.SUCCESS,
+      ).showAlert();
+    } else {
+      AppAlert(message: res.respDesc).showAlert();
     }
   }
 }

@@ -42,12 +42,21 @@ class _RequestTripState extends State<RequestTrip> {
         child: Obx(
           () => AppLoader(
             isLoading: ctrl.loading.value,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  buildSegmentedControl(),
-                  buildTripList(segment),
-                ],
+            child:    RefreshIndicator(
+      onRefresh: () async {
+        ctrl.fetchUnrequestedTrip();
+        ctrl.fetchApprovedTrip();
+        ctrl.fetchRequestedTrip();
+        return ctrl.fetchCompletedTrip();
+      },
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    buildSegmentedControl(),
+                    buildTripList(segment),
+                  ],
+                ),
               ),
             ),
           ),
@@ -114,25 +123,17 @@ class _RequestTripState extends State<RequestTrip> {
   }
 
   Widget buildTripListByType(List<TripResponse> trips) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        ctrl.fetchUnrequestedTrip();
-        ctrl.fetchApprovedTrip();
-        ctrl.fetchRequestedTrip();
-        return ctrl.fetchCompletedTrip();
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      // AlwaysScrollableScrollPhysics(),
+      itemBuilder: (context, i) {
+        return TripCard(
+          item: trips[i],
+          onSelect: widget.onSelect,
+        );
       },
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const AlwaysScrollableScrollPhysics(),
-        // AlwaysScrollableScrollPhysics(),
-        itemBuilder: (context, i) {
-          return TripCard(
-            item: trips[i],
-            onSelect: widget.onSelect,
-          );
-        },
-        itemCount: trips.length,
-      ),
+      itemCount: trips.length,
     );
   }
 }

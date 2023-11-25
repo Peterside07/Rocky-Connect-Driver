@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../../controllers/global_controller.dart';
 import '../../../models/trip_response.dart';
 import '../../../theme/colors.dart';
 
 class PaymentTripCard extends StatelessWidget {
   final TripResponse item;
   final Function(TripResponse)? onSelect;
-  const PaymentTripCard({
+  PaymentTripCard({
     Key? key,
     required this.item,
     this.onSelect,
   }) : super(key: key);
 
+  final ctrl = Get.put(GlobalController());
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-   
       child: Container(
         width: 406,
         height: 103,
@@ -174,8 +177,12 @@ class PaymentTripCard extends StatelessWidget {
                             ),
                           ),
                           if (item.paymentId == null)
-                            const Icon(
-                              Icons.notifications,
+                            IconButton(
+                              onPressed: () {
+                                ctrl.paymentReminder(item.id.toString(),
+                                    item.customerEmail.toString());
+                              },
+                              icon: const Icon(Icons.notifications),
                               color: AppColors.PRIMARY_COLOR,
                             )
                         ],

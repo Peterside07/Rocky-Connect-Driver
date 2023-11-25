@@ -29,6 +29,7 @@ class Endpoints {
   static const DELETE_ACCOUNT = '/DeleteAccount';
   static const ADD_ACCOUNT = '/RegisterBankDetail';
   static const NOTIFICATION = '/api/Notification/GetNotification';
-
+  static const PAYEMENT_REMINDER = '/PaymentReminder';
+  static const UPDATE_BANK_DETAIL = '/UpdateBankDetail';
 
 }

@@ -96,7 +96,6 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             AppInput(
                               controller: profile.firstName,
-                              onChanged: (val) => profile.fnText.value = val,
                             ),
                             Text(
                               "Last name",
@@ -107,7 +106,6 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             AppInput(
                               controller: profile.lastName,
-                              onChanged: (val) => profile.lnText.value = val,
                             ),
                             Text(
                               "Email Address",
@@ -129,9 +127,6 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             AppInput(
                               controller: profile.phoneCtrl,
-                              onChanged: (val) {
-                                profile.phone.value = val;
-                              },
                             ),
                             Padding(
                               padding:
@@ -161,9 +156,7 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             ),
                             AppInput(
-                              controller: profile.driverLiscense,
-                              onChanged: (val) =>
-                                  profile.carTypeText.value = val,
+                               controller: profile.driverLiscense,
                             ),
                             Text(
                               "Car name",
@@ -174,18 +167,6 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             AppInput(
                               controller: profile.carName,
-                              onChanged: (val) => profile.fnText.value = val,
-                            ),
-                            Text(
-                              "Car type",
-                              style: GoogleFonts.poppins(
-                                fontSize: 17,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            AppInput(
-                              controller: profile.carType,
-                              onChanged: (val) => profile.lnText.value = val,
                             ),
                             Text(
                               "Car model",
@@ -196,7 +177,16 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             AppInput(
                               controller: profile.carModel,
-                              onChanged: (val) => profile.lnText.value = val,
+                            ),
+                            Text(
+                              "Car type",
+                              style: GoogleFonts.poppins(
+                                fontSize: 17,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            AppInput(
+                              controller: profile.carType,
                             ),
                             Text(
                               "Car color",
@@ -207,8 +197,6 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             AppInput(
                               controller: profile.carColor,
-                              onChanged: (val) =>
-                                  profile.carTypeText.value = val,
                             ),
                             Text(
                               "Plate Number",
@@ -219,8 +207,6 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             AppInput(
                               controller: profile.plateNumber,
-                              onChanged: (val) =>
-                                  profile.carTypeText.value = val,
                             ),
                             Text(
                               "Car Preference",
@@ -232,7 +218,7 @@ class _AccountPageState extends State<AccountPage> {
                             CarPreferenceInput(
                               controller: profile.carPreferences,
                               onValueChanged: (val) {
-                                profile.carTypeText.value = val;
+                                //  profile.carTypeText.value = val;
                               },
                             ),
                             Padding(

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rockyconnectdriver/controllers/signup_controller.dart';
 import 'package:rockyconnectdriver/theme/colors.dart';
 
+import '../../controllers/global_controller.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/inputs/app_input.dart';
-import '../account/account_page.dart';
-import 'update_bank.dart';
+import 'sign_in.dart';
 
-class UpdateCar extends StatelessWidget {
-  UpdateCar({super.key});
+class UpdateBank extends StatelessWidget {
+  UpdateBank({super.key});
 
-  final ctrl = Get.put(SignupController());
+  final profile = Get.put(GlobalController());
 
   @override
   Widget build(BuildContext context) {
@@ -45,46 +44,52 @@ class UpdateCar extends StatelessWidget {
                   padding: const EdgeInsets.all(24.0),
                   child: SingleChildScrollView(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Car information',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
+                        const Center(
+                          child: Text(
+                            'Account Information',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Account Bank",
+                          style: GoogleFonts.poppins(
+                            fontSize: 17,
+                            color: Colors.grey,
                           ),
                         ),
                         AppInput(
-                          placeholder: 'Driver Licence ID'.tr,
-                          controller: ctrl.driverLiscenseCtrl,
+                          controller: profile.acctName,
+                        ),
+                        Text(
+                          "Account number ",
+                          style: GoogleFonts.poppins(
+                            fontSize: 17,
+                            color: Colors.grey,
+                          ),
                         ),
                         AppInput(
-                          placeholder: 'Vehicle Maker'.tr,
-                          controller: ctrl.carMakeCtrl,
-                        ),
-                        AppInput(
-                          placeholder: 'Vehicle Model'.tr,
-                        
-                          controller: ctrl.carModelCtrl,
-                        ),
-                        AppInput(
-                          placeholder: 'Type of Vehicle'.tr,
-                          controller: ctrl.carTypeCtrl,
-                       
-                        ),
-                        AppInput(
-                          placeholder: 'Plate Number'.tr,
-                          controller: ctrl.carPlateNumberCtrl,
+                          controller: profile.acctNumber,
                           keyboardType: TextInputType.number,
                         ),
-                        AppInput(
-                          placeholder: 'Color of Vehicle'.tr,
-                          controller: ctrl.carColorCtrl,
+                        Text(
+                          "Routing Number",
+                          style: GoogleFonts.inter(
+                            fontSize: 17,
+                            color: Colors.grey,
+                          ),
                         ),
-                        CarPreferenceInput(
-                          controller: ctrl.carPrefenceCtrl,
-                          onValueChanged: (val) {
-                            // profile.carTypeText.value = val;
-                          },
+                        AppInput(
+                          controller: profile.routeNumber,
+                          keyboardType: TextInputType.number,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -93,19 +98,18 @@ class UpdateCar extends StatelessWidget {
                               child: Obx(
                                 () => PrimaryButton(
                                   label: 'Save',
-                                  isLoading: ctrl.loading.value,
-                                  onPressed: () => ctrl.addCar(),
+                                  isLoading: profile.loading.value,
+                                  onPressed: () => profile.addBank(),
                                 ),
                               ),
                             ),
                             Expanded(
                               child: PrimaryButton(
-                                    label: 'Skip',
-                                    onPressed: () {
-                                      Get.to(UpdateBank());
-                                    }
-                              ),
-                            )
+                                  label: 'Skip',
+                                  onPressed: () {
+                                    Get.offAll(() => SignIn());
+                                  }),
+                            ),
                           ],
                         ),
                       ],

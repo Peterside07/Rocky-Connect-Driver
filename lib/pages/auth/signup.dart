@@ -82,95 +82,97 @@ class _SignUpState extends State<SignUp> {
                     color: Colors.white),
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    children: [
-                      const Text(
-                        'Welcome',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                        ),
-                      ),
-                      AppInput(
-                        placeholder: 'Please Enter your first name'.tr,
-                        onChanged: (val) => ctrl.fnText.value = val,
-                        controller: ctrl.fnCtrl,
-                      ),
-                      AppInput(
-                        placeholder: 'Please Enter your second name'.tr,
-                        onChanged: (val) => ctrl.lnText.value = val,
-                        controller: ctrl.lnCtrl,
-                      ),
-                      AppInput(
-                        placeholder: 'Please Enter your email'.tr,
-                        onChanged: (val) {
-                          ctrl.emailText.value = val;
-                        },
-                        controller: ctrl.emailCtrl,
-                        keyboardType: TextInputType.emailAddress,
-                        textCapitalization: TextCapitalization.none,
-                      ),
-                      AppInput(
-                        placeholder: 'Enter your Phone numbers'.tr,
-                        controller: ctrl.phoneCtrl,
-                        onChanged: (val) {
-                          ctrl.phone.value = val;
-                        },
-                        keyboardType: TextInputType.number,
-                      ),
-                      PasswordInput(
-                        placeholder: 'Please Enter your password'.tr,
-                        controller: ctrl.passwordCtrl,
-                        onChanged: (val) {
-                          _checkPassword(val);
-                          ctrl.password.value = val;
-                        },
-                      ),
-                      LinearProgressIndicator(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        value: _strength,
-                        backgroundColor: Colors.grey[300],
-                        color: _strength <= 1 / 4
-                            ? Colors.red
-                            : _strength == 2 / 4
-                                ? Colors.yellow
-                                : _strength == 3 / 4
-                                    ? Colors.blue
-                                    : Colors.green,
-                        minHeight: 7,
-                      ),
-                      Obx(
-                        () => PrimaryButton(
-                          label: 'Sign Up',
-                          isLoading: ctrl.loading.value,
-                          onPressed: () => ctrl.signup(),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "Already have an account?",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const Text(
+                          'Welcome',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              Get.to(() => SignIn());
-                            },
-                            child: const Text(
-                              "Log in",
+                        ),
+                        AppInput(
+                          placeholder: 'Please Enter your first name'.tr,
+                          onChanged: (val) => ctrl.fnText.value = val,
+                          controller: ctrl.fnCtrl,
+                        ),
+                        AppInput(
+                          placeholder: 'Please Enter your second name'.tr,
+                          onChanged: (val) => ctrl.lnText.value = val,
+                          controller: ctrl.lnCtrl,
+                        ),
+                        AppInput(
+                          placeholder: 'Please Enter your email'.tr,
+                          onChanged: (val) {
+                            ctrl.emailText.value = val;
+                          },
+                          controller: ctrl.emailCtrl,
+                          keyboardType: TextInputType.emailAddress,
+                          textCapitalization: TextCapitalization.none,
+                        ),
+                        AppInput(
+                          placeholder: 'Enter your Phone numbers'.tr,
+                          controller: ctrl.phoneCtrl,
+                          onChanged: (val) {
+                            ctrl.phone.value = val;
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                        PasswordInput(
+                          placeholder: 'Please Enter your password'.tr,
+                          controller: ctrl.passwordCtrl,
+                          onChanged: (val) {
+                            _checkPassword(val);
+                            ctrl.password.value = val;
+                          },
+                        ),
+                        LinearProgressIndicator(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          value: _strength,
+                          backgroundColor: Colors.grey[300],
+                          color: _strength <= 1 / 4
+                              ? Colors.red
+                              : _strength == 2 / 4
+                                  ? Colors.yellow
+                                  : _strength == 3 / 4
+                                      ? Colors.blue
+                                      : Colors.green,
+                          minHeight: 7,
+                        ),
+                        Obx(
+                          () => PrimaryButton(
+                            label: 'Sign Up',
+                            isLoading: ctrl.loading.value,
+                            onPressed: () => ctrl.signup(),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Already have an account?",
                               style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppColors.PRIMARY_COLOR,
-                                  fontWeight: FontWeight.bold),
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(() => SignIn());
+                              },
+                              child: const Text(
+                                "Log in",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppColors.PRIMARY_COLOR,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

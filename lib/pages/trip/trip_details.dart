@@ -291,7 +291,7 @@ class _TripDetailsState extends State<TripDetails> {
                                               ),
                                             ),
                                             Text(
-                                               '${widget.tripResponse.totalTime} mins',
+                                              '${widget.tripResponse.totalTime} mins',
                                               style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 10,
@@ -392,7 +392,7 @@ class _TripDetailsState extends State<TripDetails> {
                                   height: 0,
                                 ),
                               ),
-                      
+
                             if (widget.tripResponse.tripStatus == 'Approved' &&
                                     widget.tripResponse.customerEmail != '' ||
                                 widget.tripResponse.tripStatus == 'Completed')
@@ -425,7 +425,7 @@ class _TripDetailsState extends State<TripDetails> {
                                                           fontSize: 20,
                                                           color: Colors.white),
                                                     ),
-                      
+
                                                     // backgroundImage: AssetImage(""),
                                                   ),
                                                   const SizedBox(
@@ -472,7 +472,8 @@ class _TripDetailsState extends State<TripDetails> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                if (widget.tripResponse.driverEmail != null)
+                                if (widget.tripResponse.driverEmail != null &&
+                                    widget.tripResponse.tripStatus != 'Created')
                                   SizedBox(
                                     height: 35,
                                     width: 35,
@@ -481,7 +482,7 @@ class _TripDetailsState extends State<TripDetails> {
                                       onPressed: () {
                                         String commonChatRoomId =
                                             widget.tripResponse.id ?? '';
-                      
+
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -499,7 +500,8 @@ class _TripDetailsState extends State<TripDetails> {
                                       ),
                                     ),
                                   ),
-                                if (widget.tripResponse.driverEmail != null)
+                                if (widget.tripResponse.driverEmail != null &&
+                                    widget.tripResponse.tripStatus != 'Created')
                                   IconButton(
                                     padding: EdgeInsets.zero,
                                     onPressed: () {
@@ -514,7 +516,9 @@ class _TripDetailsState extends State<TripDetails> {
                                     ),
                                   ),
                                 if (widget.tripResponse.driverEmail != null &&
-                                    widget.tripResponse.tripStatus != 'Enroute')
+                                    widget.tripResponse.tripStatus !=
+                                        'Enroute' &&
+                                    widget.tripResponse.tripStatus != 'Created')
                                   IconButton(
                                     padding: EdgeInsets.zero,
                                     onPressed:
@@ -535,7 +539,7 @@ class _TripDetailsState extends State<TripDetails> {
                                   )
                               ],
                             ),
-                      
+
                             // widget.tripResponse.tripStatus != 'Approved'
                             //     ? Center(
                             //         child: PrimaryButton(
@@ -580,7 +584,8 @@ class _TripDetailsState extends State<TripDetails> {
                                       height: 60,
                                       width: 120,
                                       onPressed: () {
-                                        Get.back();
+                                        Get.to(() => CancelTrip(
+                                            tripResponse: widget.tripResponse));
                                       },
                                       label: 'Cancel',
                                     ),
@@ -594,7 +599,7 @@ class _TripDetailsState extends State<TripDetails> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Obx(() => Expanded(
-                                    child: PrimaryButton(
+                                        child: PrimaryButton(
                                           isLoading: ctrl.loading.value,
                                           height: 60,
                                           width: 120,
@@ -602,18 +607,19 @@ class _TripDetailsState extends State<TripDetails> {
                                             ctrl.idTrip.value =
                                                 widget.tripResponse.id ?? "";
                                             ctrl.customerEmail.value = widget
-                                                    .tripResponse.customerEmail ??
+                                                    .tripResponse
+                                                    .customerEmail ??
                                                 '';
                                             ctrl.approveTrip();
                                             //  Get.offAll(HomeScreen());
                                           },
                                           label: 'Approve',
                                         ),
-                                  )),
+                                      )),
                                   Expanded(
                                     child: PrimaryButton(
                                       height: 60,
-                                          width: 120,
+                                      width: 120,
                                       onPressed: () {
                                         ctrl.idTrip.value =
                                             widget.tripResponse.id ?? "";
@@ -633,28 +639,29 @@ class _TripDetailsState extends State<TripDetails> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
+                                  // Expanded(
+                                  //   child: PrimaryButton(
+                                  //     height: 60,
+                                  //      width: 120,
+                                  //     onPressed: () {
+                                  //       ctrl.idTrip.value =
+                                  //           widget.tripResponse.id ?? "";
+                                  //       ctrl.customerEmail.value =
+                                  //           widget.tripResponse.customerEmail ??
+                                  //               '';
+                                  //       //  ctrl.approveTrip();
+                                  //       //  Get.offAll(HomeScreen());
+                                  //     },
+                                  //     label: 'Update',
+                                  //   ),
+                                  // ),
                                   Expanded(
-                                    child: PrimaryButton(
-                                      height: 60,
-                                       width: 120,
-                                      onPressed: () {
-                                        ctrl.idTrip.value =
-                                            widget.tripResponse.id ?? "";
-                                        ctrl.customerEmail.value =
-                                            widget.tripResponse.customerEmail ??
-                                                '';
-                                        //  ctrl.approveTrip();
-                                        //  Get.offAll(HomeScreen());
-                                      },
-                                      label: 'Update',
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: PrimaryButton(
+                                    child:PrimaryButton(
                                       height: 60,
                                       width: 120,
                                       onPressed: () {
-                                        Get.back();
+                                        Get.to(() => CancelTrip(
+                                            tripResponse: widget.tripResponse));
                                       },
                                       label: 'Cancel',
                                     ),
@@ -688,13 +695,16 @@ class _TripDetailsState extends State<TripDetails> {
                                       height: 60,
                                       width: 120,
                                       //  isLoading: ctrl.loading.value,
-                                      onPressed: widget.tripResponse.tripStatus ==
-                                                  'Enroute' 
-                                               //   && widget.tripResponse.paymentId =null
-                                              ?() {
-                                        ctrl.endTrip(
-                                            widget.tripResponse.id.toString());
-                                      }: null,
+                                      onPressed: widget
+                                                  .tripResponse.tripStatus ==
+                                              'Enroute'
+                                          //   && widget.tripResponse.paymentId =null
+                                          ? () {
+                                              ctrl.endTrip(widget
+                                                  .tripResponse.id
+                                                  .toString());
+                                            }
+                                          : null,
                                       label: 'End Trip',
                                     ),
                                   )

@@ -35,6 +35,7 @@ class LoginController extends GetxController {
     final data = {
       'email': emailAddress.value,
       'password': password.value,
+      'app': 2,
       'deviceID': TokenService.fcmToken,
 
     };

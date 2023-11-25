@@ -125,16 +125,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               controller: profile.routeNumber,
                               keyboardType: TextInputType.number,
                             ),
-                            // Text(
-                            //   "Account Type",
-                            //   style: GoogleFonts.inter(
-                            //     fontSize: 17,
-                            //     color: Colors.grey,
-                            //   ),
-                            // ),
-                            // AppInput(
-                            //   controller: profile.acctType,
-                            // ),
+                           
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -142,7 +133,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 () => PrimaryButton(
                                   label: 'Save changes',
                                   isLoading: profile.loading.value,
-                                  onPressed: () => profile.addBank(),
+                                  onPressed: () => profile.updateBank(),
                                 ),
                               ),
                             ),
@@ -155,6 +146,7 @@ class _PaymentPageState extends State<PaymentPage> {
           () => AppLoader(
             isLoading: ctrl.loading.value,
             child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,

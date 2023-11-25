@@ -5,34 +5,34 @@ import '../../theme/colors.dart';
 class FAQScreen extends StatelessWidget {
   final List<FAQItem> faqItems = [
     FAQItem(
-      question: 'What is Lorem Ipsum?',
+      question: 'Is Rocky Connect available on IOS?',
       answer:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+          ' Rocky Connect IOS is currently under review and should be available from January 2024',
     ),
     FAQItem(
-      question: 'What is Lorem Ipsum?',
+      question: 'Is Rocky Connect for WIU student?',
       answer:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+          'Rocky Connect is a mobile app built to connect WIU students together and help them create easy transportation.',
     ),
     FAQItem(
-      question: 'What is Lorem Ipsum?',
+      question: 'Can you be a rider and a driver?',
       answer:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+          ' currently Rocky connect only permits one role per student email. Currently under review for multirole capabilities on the App',
     ),
     FAQItem(
-      question: 'What is Lorem Ipsum?',
+      question: 'Can a rider login to a driver app?',
       answer:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+          'Rocky Connect only allows riders access to Rider app, likewise on the driver app?',
     ),
     FAQItem(
-      question: 'What is Lorem Ipsum?',
+      question: 'Is Rocky connect a paid app?',
       answer:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+          'as a user on this app, you’re only required to pay for your trips. Rocky connect doesn’t charge students for using mobile application.',
     ),
     FAQItem(
-      question: 'What is Lorem Ipsum?',
+      question: 'When is the next Update?',
       answer:
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+          ' Next software update will occur 01/01/24',
     ),
   ];
 

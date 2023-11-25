@@ -96,7 +96,7 @@ class TripController extends GetxController {
             .toList());
       }
     } else {
-      AppAlert(message: res.respDesc).showAlert();
+     // AppAlert(message: res.respDesc).showAlert();
     }
   }
 

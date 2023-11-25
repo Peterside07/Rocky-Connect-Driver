@@ -10,6 +10,7 @@ import 'package:rockyconnectdriver/services/api.dart';
 import '../global/endpoints.dart';
 import '../pages/trip/select_trip.dart';
 import 'global_controller.dart';
+import 'trip_controller.dart';
 
 class MapController extends GetxController {
   TextEditingController dateControllerCtx = TextEditingController(text: '');
@@ -45,18 +46,20 @@ class MapController extends GetxController {
   var idTrip = ''.obs;
   var customerEmail = ''.obs;
   final ctrl = Get.put(GlobalController());
+  final tripCtrl = Get.put(TripController());
 
-double calculateTotalTime(double tripDistance) {
-  double averageSpeed = 60.0; // Average speed in kilometers per hour
+  double calculateTotalTime(double tripDistance) {
+    double averageSpeed = 60.0; // Average speed in kilometers per hour
 
-  // Calculate totalTime in hours
-  double totalTimeInHours = tripDistance / averageSpeed;
+    // Calculate totalTime in hours
+    double totalTimeInHours = tripDistance / averageSpeed;
 
-  // Convert totalTime to minutes
-  double totalTimeInMinutes = totalTimeInHours * 60.0;
+    // Convert totalTime to minutes
+    double totalTimeInMinutes = totalTimeInHours * 60.0;
 
-  return totalTimeInMinutes;
-}
+    return totalTimeInMinutes;
+  }
+
   //Search for Driver
   void searchForDriver() async {
     var data = {
@@ -85,16 +88,14 @@ double calculateTotalTime(double tripDistance) {
         type: AlertType.SUCCESS,
       ).showAlert();
     } else {
-      AppAlert(
-        type: AlertType.INFO,
-        message: res.respDesc).showAlert();
+      AppAlert(type: AlertType.INFO, message: res.respDesc).showAlert();
     }
   }
 
   //Search for Driver
   void scheduleTrip() async {
     var data = {
-       "customerEmail": '',
+      "customerEmail": '',
       "driverEmail": ctrl.email.text,
       "sourceLocation": startName.value.toString(),
       "sourceLongitude": startLat.value.toString(),
@@ -185,7 +186,11 @@ double calculateTotalTime(double tripDistance) {
     loading.value = false;
 
     if (res.respCode == 0) {
-      // Get.back();
+      tripCtrl.fetchUnrequestedTrip();
+      tripCtrl.fetchApprovedTrip();
+      tripCtrl.fetchRequestedTrip();
+      tripCtrl.fetchCompletedTrip();
+      Get.back();
 
       AppAlert(
         message: res.respDesc,
@@ -206,6 +211,10 @@ double calculateTotalTime(double tripDistance) {
     loading.value = false;
 
     if (res.respCode == 0) {
+      tripCtrl.fetchUnrequestedTrip();
+      tripCtrl.fetchApprovedTrip();
+      tripCtrl.fetchRequestedTrip();
+      tripCtrl.fetchCompletedTrip();
       Get.back();
 
       AppAlert(
