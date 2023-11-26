@@ -202,6 +202,22 @@ class _MapScreenState extends State<MapScreen> {
             ),
           );
         }),
+      Positioned(
+  top: 30, 
+  left: 20, 
+  child: Container(
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: Colors.white, // Adjust the color as needed
+    ),
+    child: IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        Get.back();
+      },
+    ),
+  ),
+),
         DraggableScrollableSheet(
             initialChildSize: 0.5,
             minChildSize: 0.5,
@@ -237,6 +253,7 @@ class _MapScreenState extends State<MapScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+                              
                                   Text(
                                     widget.startName ?? '',
                                     maxLines: 1,

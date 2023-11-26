@@ -9,7 +9,6 @@ import 'package:rockyconnectdriver/services/api.dart';
 
 import '../global/endpoints.dart';
 import '../pages/trip/select_trip.dart';
-import 'global_controller.dart';
 import 'trip_controller.dart';
 
 class MapController extends GetxController {
@@ -45,8 +44,7 @@ class MapController extends GetxController {
   var trip = <TripResponse>[].obs;
   var idTrip = ''.obs;
   var customerEmail = ''.obs;
-  final ctrl = Get.put(GlobalController());
-  final tripCtrl = Get.put(TripController());
+  //final ctrl = Get.put(GlobalController());
 
   double calculateTotalTime(double tripDistance) {
     double averageSpeed = 60.0; // Average speed in kilometers per hour
@@ -177,6 +175,8 @@ class MapController extends GetxController {
   }
 
   void startTrip(String id) async {
+    final tripCtrl = Get.put(TripController());
+
     var data = {
       "id": id,
     };
@@ -202,6 +202,8 @@ class MapController extends GetxController {
   }
 
   void endTrip(String id) async {
+    final tripCtrl = Get.put(TripController());
+
     var data = {
       "id": id,
     };

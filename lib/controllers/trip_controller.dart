@@ -27,8 +27,6 @@ class TripController extends GetxController {
   var requestedTrip = <TripResponse>[].obs;
   var unrequestTrip = <TripResponse>[].obs;
 
-  final ctrl = Get.put(GlobalController());
-
   @override
   void onReady() {
     fetchRequestedTrip();
@@ -39,9 +37,11 @@ class TripController extends GetxController {
   }
 
   void fetchRequestedTrip() async {
-      final email = ctrl.email.text;
+    final ctrl = Get.put(GlobalController());
+
+    final email = ctrl.email.text;
     String encodedEmail = Uri.encodeComponent(email);
- 
+
     loading.value = true;
     var res = await Api().get(
         '${Endpoints.REQUEST_TRIPS_AWAITING_APPROVAL}?email=$encodedEmail');
@@ -59,7 +59,9 @@ class TripController extends GetxController {
   }
 
   void fetchCompletedTrip() async {
-      final email = ctrl.email.text;
+    final ctrl = Get.put(GlobalController());
+
+    final email = ctrl.email.text;
     String encodedEmail = Uri.encodeComponent(email);
     loading.value = true;
     var res = await Api().get(
@@ -79,6 +81,8 @@ class TripController extends GetxController {
   }
 
   void fetchApprovedTrip() async {
+    final ctrl = Get.put(GlobalController());
+
     final email = ctrl.email.text;
     String encodedEmail = Uri.encodeComponent(email);
     debugPrint(encodedEmail);
@@ -96,11 +100,13 @@ class TripController extends GetxController {
             .toList());
       }
     } else {
-     // AppAlert(message: res.respDesc).showAlert();
+      // AppAlert(message: res.respDesc).showAlert();
     }
   }
 
   void fetchUnrequestedTrip() async {
+    final ctrl = Get.put(GlobalController());
+
     final email = ctrl.email.text;
     String encodedEmail = Uri.encodeComponent(email);
 
@@ -117,11 +123,11 @@ class TripController extends GetxController {
             .toList());
       }
     } else {
-   //   AppAlert(message: res.respDesc).showAlert();
+      //   AppAlert(message: res.respDesc).showAlert();
     }
   }
 
-   void cancelATripWithReason(String id, String reason) async {
+  void cancelATripWithReason(String id, String reason) async {
     var data = {
       'id': id,
       "reasonForCancel": reason,
@@ -142,5 +148,4 @@ class TripController extends GetxController {
       Utils.showAlert(response.respDesc);
     }
   }
-
 }
