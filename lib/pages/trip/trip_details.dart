@@ -10,7 +10,6 @@ import 'package:rockyconnectdriver/widgets/buttons/primary_button.dart';
 
 import '../../theme/colors.dart';
 import '../../widgets/loaders/app_loader.dart';
-import '../home/select_ride.dart';
 import 'cancel_trip.dart';
 
 class TripDetails extends StatefulWidget {

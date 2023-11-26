@@ -48,7 +48,7 @@ class NoticationPage extends StatelessWidget {
 class NotificationItem extends StatelessWidget {
   final NotificationModel item;
 
-  NotificationItem({
+  const NotificationItem({
     Key? key,
     required this.item,
   }) : super(key: key);
@@ -93,7 +93,7 @@ class NotificationItem extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               DateFormat('dd MMMM yyyy HH:mm').format(item.dateSent!),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,
                 fontFamily: 'Poppins',
