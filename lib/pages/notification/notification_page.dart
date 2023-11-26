@@ -2,16 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:rockyconnectdriver/controllers/notification_controller.dart';
 
 
-import '../../controllers/global_controller.dart';
 import '../../models/notification_model.dart';
 import '../../theme/colors.dart';
 import '../../widgets/loaders/app_loader.dart';
 
 class NoticationPage extends StatelessWidget {
   NoticationPage({super.key});
-  final ctrl = Get.put(GlobalController());
+  final ctrl = Get.put(NotificationController());
 
   @override
   Widget build(BuildContext context) {

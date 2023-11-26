@@ -50,7 +50,6 @@ class LoginController extends GetxController {
       globalCtx.setFieldsForEdit();
       globalCtx.getCar();
       globalCtx.getBank();
-      globalCtx.getNotificationList();
 
       AppAlert(
         message: res.respDesc,

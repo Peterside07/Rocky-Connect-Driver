@@ -8,7 +8,6 @@ import 'package:rockyconnectdriver/widgets/utils.dart';
 
 import '../global/endpoints.dart';
 import '../models/app_alert.dart';
-import '../models/notification_model.dart';
 import '../models/user_model.dart';
 import '../pages/auth/sign_in.dart';
 import '../pages/home/home_screen.dart';
@@ -61,7 +60,6 @@ class GlobalController extends GetxController {
   var carNameText = ''.obs;
   var carTypeText = ''.obs;
   var carModelText = ''.obs;
-  var notificationList = <NotificationModel>[].obs;
 
 
   Rx<Position> userLocation = Position(
@@ -273,23 +271,6 @@ class GlobalController extends GetxController {
     }
   }
 
-  void getNotificationList() async {
-    final email = ctrl.email.text;
-    String encodedEmail = Uri.encodeComponent(email);
-    loading.value = true;
-    var res = await Api().get('${Endpoints.NOTIFICATION}?email=$encodedEmail');
-    loading.value = false;
-
-    if (res.respCode == 0) {
-      if (res.data != null) {
-        notificationList.assignAll((res.data as List)
-            .map((item) => NotificationModel.fromJson(item))
-            .toList());
-      }
-    } else {
-      // AppAlert(message: res.respDesc).showAlert();
-    }
-  }
 
   void paymentReminder(String id, String email) async {
     String encodedEmail = Uri.encodeComponent(email);
@@ -302,11 +283,11 @@ class GlobalController extends GetxController {
     loading.value = false;
 
     if (res.respCode == 0) {
-      Get.back();
+    //  Get.back();
 
-      AppAlert(message: res.respDesc).showAlert();
+      AppAlert(message: res.respDesc, type:  AlertType.SUCCESS).showAlert();
     } else {
-      // AppAlert(message: res.respDesc).showAlert();
+   AppAlert(message: res.respDesc, type: AlertType.SUCCESS,).showAlert();
     }
   }
 

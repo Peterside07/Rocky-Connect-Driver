@@ -10,6 +10,7 @@ import 'package:rockyconnectdriver/widgets/buttons/primary_button.dart';
 
 import '../../theme/colors.dart';
 import '../../widgets/loaders/app_loader.dart';
+import '../home/select_ride.dart';
 import 'cancel_trip.dart';
 
 class TripDetails extends StatefulWidget {
@@ -171,7 +172,8 @@ class _TripDetailsState extends State<TripDetails> {
                                               ),
                                               Text(
                                                 //   'Chicago union station',
-                                                widget.tripResponse.destination ??
+                                                widget.tripResponse
+                                                        .destination ??
                                                     '',
                                                 style: const TextStyle(
                                                   color: Colors.black,
@@ -199,7 +201,8 @@ class _TripDetailsState extends State<TripDetails> {
                                                       color: Colors.black,
                                                       fontSize: 12,
                                                       fontFamily: 'Poppins',
-                                                      fontWeight: FontWeight.w700,
+                                                      fontWeight:
+                                                          FontWeight.w700,
                                                       height: 0,
                                                     ),
                                                   ),
@@ -213,7 +216,8 @@ class _TripDetailsState extends State<TripDetails> {
                                                       color: Colors.black,
                                                       fontSize: 12,
                                                       fontFamily: 'Poppins',
-                                                      fontWeight: FontWeight.w700,
+                                                      fontWeight:
+                                                          FontWeight.w700,
                                                     ),
                                                   ),
                                                 ],
@@ -233,14 +237,16 @@ class _TripDetailsState extends State<TripDetails> {
                                                       color: Colors.black,
                                                       fontSize: 12,
                                                       fontFamily: 'Poppins',
-                                                      fontWeight: FontWeight.w700,
+                                                      fontWeight:
+                                                          FontWeight.w700,
                                                       height: 0,
                                                     ),
                                                   ),
                                                   Text(
-                                                    DateFormat('hh:mm a').format(
-                                                      widget
-                                                          .tripResponse.tripDate!
+                                                    DateFormat('hh:mm a')
+                                                        .format(
+                                                      widget.tripResponse
+                                                          .tripDate!
                                                           .toLocal()
                                                           .add(Duration(
                                                               hours: widget
@@ -252,7 +258,8 @@ class _TripDetailsState extends State<TripDetails> {
                                                       color: Colors.black,
                                                       fontSize: 12,
                                                       fontFamily: 'Poppins',
-                                                      fontWeight: FontWeight.w700,
+                                                      fontWeight:
+                                                          FontWeight.w700,
                                                     ),
                                                   ),
                                                 ],
@@ -269,7 +276,8 @@ class _TripDetailsState extends State<TripDetails> {
                                       endIndent: 10,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 18.0),
+                                      padding:
+                                          const EdgeInsets.only(right: 18.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -328,7 +336,8 @@ class _TripDetailsState extends State<TripDetails> {
                                                       color: Colors.black,
                                                       fontSize: 10,
                                                       fontFamily: 'Poppins',
-                                                      fontWeight: FontWeight.w400,
+                                                      fontWeight:
+                                                          FontWeight.w400,
                                                     ),
                                                   ),
                                                   if (widget.tripResponse
@@ -361,7 +370,8 @@ class _TripDetailsState extends State<TripDetails> {
                                                 ),
                                               ),
                                               Text(
-                                                widget.tripResponse.tripStatus ??
+                                                widget.tripResponse
+                                                        .tripStatus ??
                                                     '',
                                                 style: const TextStyle(
                                                   color: Colors.black,
@@ -381,8 +391,11 @@ class _TripDetailsState extends State<TripDetails> {
                               const SizedBox(
                                 height: 40,
                               ),
-                              if (widget.tripResponse.tripStatus == 'Approved' ||
-                                  widget.tripResponse.tripStatus == 'Completed')
+                              if (widget.tripResponse.tripStatus ==
+                                      'Approved' ||
+                                  widget.tripResponse.tripStatus ==
+                                      'Completed' ||
+                                  widget.tripResponse.tripStatus == 'Requested')
                                 const Text(
                                   'User Details',
                                   style: TextStyle(
@@ -393,88 +406,90 @@ class _TripDetailsState extends State<TripDetails> {
                                     height: 0,
                                   ),
                                 ),
-                      
-                              if (widget.tripResponse.tripStatus == 'Approved' &&
+
+                              if (widget.tripResponse.tripStatus ==
+                                          'Approved' &&
                                       widget.tripResponse.customerEmail != '' ||
-                                  widget.tripResponse.tripStatus == 'Completed')
+                                  widget.tripResponse.tripStatus ==
+                                      'Completed' ||
+                                  widget.tripResponse.tripStatus == 'Requested')
                                 SizedBox(
-                                    height: 200,
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Container(
-                                          //   color: AppColors.PRIMARY_COLOR_LIGHT,
-                                          //   height: 50,
-                                          // ),
-                                          Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    CircleAvatar(
-                                                      radius: 30,
-                                                      backgroundColor:
-                                                          AppColors.PRIMARY_COLOR,
-                                                      child: Text(
-                                                        '${widget.tripResponse.riderFirstName?.substring(0, 1)}${widget.tripResponse.riderLastName?.substring(0, 1)}'
-                                                            .toUpperCase(),
+                                  height: 90,
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 30,
+                                                    backgroundColor:
+                                                        AppColors.PRIMARY_COLOR,
+                                                    child: Text(
+                                                      '${widget.tripResponse.riderFirstName?.substring(0, 1)}${widget.tripResponse.riderLastName?.substring(0, 1)}'
+                                                          .toUpperCase(),
+                                                      style: const TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.white),
+                                                    ),
+
+                                                    // backgroundImage: AssetImage(""),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        '${widget.tripResponse.riderFirstName} ${widget.tripResponse.riderLastName}',
                                                         style: const TextStyle(
-                                                            fontSize: 20,
-                                                            color: Colors.white),
+                                                          color:
+                                                              Color(0xFF663399),
+                                                          fontSize: 14,
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                        ),
                                                       ),
-                      
-                                                      // backgroundImage: AssetImage(""),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.start,
-                                                      children: [
-                                                        Text(
-                                                          '${widget.tripResponse.riderFirstName} ${widget.tripResponse.riderLastName}',
-                                                          style: const TextStyle(
-                                                            color:
-                                                                Color(0xFF663399),
-                                                            fontSize: 14,
-                                                            fontFamily: 'Poppins',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
+                                                      Text(
+                                                        widget.tripResponse
+                                                                .riderPhoneNumber ??
+                                                            '',
+                                                        style: const TextStyle(
+                                                          color:
+                                                              Color(0xFF663399),
+                                                          fontSize: 14,
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.w700,
                                                         ),
-                                                        Text(
-                                                          widget.tripResponse
-                                                                  .riderPhoneNumber ??
-                                                              '',
-                                                          style: const TextStyle(
-                                                            color:
-                                                                Color(0xFF663399),
-                                                            fontSize: 14,
-                                                            fontFamily: 'Poppins',
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ]),
-                                        ])),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ]),
+                                      ]),
+                                ),
                               const SizedBox(height: 10),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   if (widget.tripResponse.driverEmail != null &&
-                                      widget.tripResponse.tripStatus != 'Created')
+                                      widget.tripResponse.tripStatus !=
+                                          'Created')
                                     SizedBox(
                                       height: 35,
                                       width: 35,
@@ -483,7 +498,7 @@ class _TripDetailsState extends State<TripDetails> {
                                         onPressed: () {
                                           String commonChatRoomId =
                                               widget.tripResponse.id ?? '';
-                      
+
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -502,7 +517,8 @@ class _TripDetailsState extends State<TripDetails> {
                                       ),
                                     ),
                                   if (widget.tripResponse.driverEmail != null &&
-                                      widget.tripResponse.tripStatus != 'Created')
+                                      widget.tripResponse.tripStatus !=
+                                          'Created')
                                     IconButton(
                                       padding: EdgeInsets.zero,
                                       onPressed: () {
@@ -519,7 +535,8 @@ class _TripDetailsState extends State<TripDetails> {
                                   if (widget.tripResponse.driverEmail != null &&
                                       widget.tripResponse.tripStatus !=
                                           'Enroute' &&
-                                      widget.tripResponse.tripStatus != 'Created')
+                                      widget.tripResponse.tripStatus !=
+                                          'Created')
                                     IconButton(
                                       padding: EdgeInsets.zero,
                                       onPressed:
@@ -540,7 +557,7 @@ class _TripDetailsState extends State<TripDetails> {
                                     )
                                 ],
                               ),
-                      
+
                               // widget.tripResponse.tripStatus != 'Approved'
                               //     ? Center(
                               //         child: PrimaryButton(
@@ -571,9 +588,9 @@ class _TripDetailsState extends State<TripDetails> {
                                         onPressed: () {
                                           ctrl.idTrip.value =
                                               widget.tripResponse.id ?? "";
-                                          ctrl.customerEmail.value =
-                                              widget.tripResponse.customerEmail ??
-                                                  '';
+                                          ctrl.customerEmail.value = widget
+                                                  .tripResponse.customerEmail ??
+                                              '';
                                           ctrl.approveTrip();
                                           //  Get.offAll(HomeScreen());
                                         },
@@ -586,14 +603,16 @@ class _TripDetailsState extends State<TripDetails> {
                                         width: 120,
                                         onPressed: () {
                                           Get.to(() => CancelTrip(
-                                              tripResponse: widget.tripResponse));
+                                              tripResponse:
+                                                  widget.tripResponse));
                                         },
                                         label: 'Cancel',
                                       ),
                                     )
                                   ],
                                 ),
-                              if (widget.tripResponse.tripStatus == 'Requested' &&
+                              if (widget.tripResponse.tripStatus ==
+                                      'Requested' &&
                                   widget.tripResponse.customerEmail != null)
                                 Row(
                                   mainAxisAlignment:
@@ -624,9 +643,9 @@ class _TripDetailsState extends State<TripDetails> {
                                         onPressed: () {
                                           ctrl.idTrip.value =
                                               widget.tripResponse.id ?? "";
-                                          ctrl.customerEmail.value =
-                                              widget.tripResponse.customerEmail ??
-                                                  '';
+                                          ctrl.customerEmail.value = widget
+                                                  .tripResponse.customerEmail ??
+                                              '';
                                           ctrl.declineTrip();
                                         },
                                         label: 'Decline',
@@ -643,13 +662,17 @@ class _TripDetailsState extends State<TripDetails> {
                                     // Expanded(
                                     //   child: PrimaryButton(
                                     //     height: 60,
-                                    //      width: 120,
+                                    //     width: 120,
                                     //     onPressed: () {
                                     //       ctrl.idTrip.value =
                                     //           widget.tripResponse.id ?? "";
-                                    //       ctrl.customerEmail.value =
-                                    //           widget.tripResponse.customerEmail ??
-                                    //               '';
+                                    //     //  Get.to(() => 
+
+                                    //       // ctrl.idTrip.value =
+                                    //       //     widget.tripResponse.id ?? "";
+                                    //       // ctrl.customerEmail.value =
+                                    //       //     widget.tripResponse.customerEmail ??
+                                    //       //         '';
                                     //       //  ctrl.approveTrip();
                                     //       //  Get.offAll(HomeScreen());
                                     //     },
@@ -657,19 +680,21 @@ class _TripDetailsState extends State<TripDetails> {
                                     //   ),
                                     // ),
                                     Expanded(
-                                      child:PrimaryButton(
+                                      child: PrimaryButton(
                                         height: 60,
                                         width: 120,
                                         onPressed: () {
                                           Get.to(() => CancelTrip(
-                                              tripResponse: widget.tripResponse));
+                                              tripResponse:
+                                                  widget.tripResponse));
                                         },
                                         label: 'Cancel',
                                       ),
                                     )
                                   ],
                                 ),
-                              if (widget.tripResponse.tripStatus == 'Approved' ||
+                              if (widget.tripResponse.tripStatus ==
+                                      'Approved' ||
                                   widget.tripResponse.tripStatus == 'Enroute')
                                 Row(
                                   mainAxisAlignment:
