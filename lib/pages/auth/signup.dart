@@ -64,9 +64,10 @@ class _SignUpState extends State<SignUp> {
               padding: const EdgeInsets.only(top: 100.0),
               child: Center(
                 child: Text(
-                  "Rocky Connect",
-                  style: GoogleFonts.tourney(fontSize: 45, color: Colors.white),
-                ),
+                "Rocky Connect \n Driver",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.tourney(fontSize: 45, color: Colors.white),
+              ),
               ),
             ),
             const SizedBox(

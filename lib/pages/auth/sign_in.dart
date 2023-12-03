@@ -30,11 +30,11 @@ class SignIn extends StatelessWidget {
                 return SizedBox(
                   height: constraints.maxHeight / 3,
                   child: Center(
-                    child: Text(
-                      "Rocky Connects",
-                      style: GoogleFonts.tourney(
-                          fontSize: 45, color: Colors.white),
-                    ),
+                    child:  Text(
+                "Rocky Connect \n Driver",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.tourney(fontSize: 40, color: Colors.white),
+              ),
                   ),
                 );
               }),

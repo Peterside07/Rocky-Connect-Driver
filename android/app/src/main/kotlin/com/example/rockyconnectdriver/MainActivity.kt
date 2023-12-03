@@ -1,4 +1,4 @@
-package com.example.rockyconnectdriver
+package com.rocky.rockyconnectdriver
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -31,5 +31,6 @@ class Endpoints {
   static const NOTIFICATION = '/api/controller/GetNotification';
   static const PAYEMENT_REMINDER = '/PaymentReminder';
   static const UPDATE_BANK_DETAIL = '/UpdateBankDetail';
+  static const DRIVER_INFO = '/GetDriverInfo';
 
 }

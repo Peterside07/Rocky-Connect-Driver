@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDZ-q4fGB49W25_5x33YvU1cG3PtyBJZSI',
-    appId: '1:772612027831:android:c16cc8f7f4c7f7c2dca432',
+    appId: '1:772612027831:android:100e194bc8245818dca432',
     messagingSenderId: '772612027831',
     projectId: 'rockyconnectride',
     storageBucket: 'rockyconnectride.appspot.com',
@@ -62,19 +62,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDvQGzezINzQVT_YtuxBBhDqaE5e1WAEsw',
-    appId: '1:772612027831:ios:c2bbda3939d095ccdca432',
+    appId: '1:772612027831:ios:b777afa603fc4f76dca432',
     messagingSenderId: '772612027831',
     projectId: 'rockyconnectride',
     storageBucket: 'rockyconnectride.appspot.com',
-    iosBundleId: 'com.example.rockyconnectdriver',
+    iosBundleId: 'com.rocky.rockyconnectdriver',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDvQGzezINzQVT_YtuxBBhDqaE5e1WAEsw',
-    appId: '1:772612027831:ios:ecf517390cb4939fdca432',
+    appId: '1:772612027831:ios:855f7a48f9bc0b63dca432',
     messagingSenderId: '772612027831',
     projectId: 'rockyconnectride',
     storageBucket: 'rockyconnectride.appspot.com',
-    iosBundleId: 'com.example.rockyconnectdriver.RunnerTests',
+    iosBundleId: 'com.rocky.rockyconnectdriver.RunnerTests',
   );
 }

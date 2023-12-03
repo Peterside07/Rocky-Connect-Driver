@@ -488,7 +488,8 @@ class _TripDetailsState extends State<TripDetails> {
                                 children: [
                                   if (widget.tripResponse.driverEmail != null &&
                                       widget.tripResponse.tripStatus !=
-                                          'Created')
+                                          'Created' && widget.tripResponse.tripStatus !=
+                                          'Requested' )
                                     SizedBox(
                                       height: 35,
                                       width: 35,
@@ -517,7 +518,8 @@ class _TripDetailsState extends State<TripDetails> {
                                     ),
                                   if (widget.tripResponse.driverEmail != null &&
                                       widget.tripResponse.tripStatus !=
-                                          'Created')
+                                          'Created' && widget.tripResponse.tripStatus !=
+                                          'Requested')
                                     IconButton(
                                       padding: EdgeInsets.zero,
                                       onPressed: () {
@@ -535,7 +537,8 @@ class _TripDetailsState extends State<TripDetails> {
                                       widget.tripResponse.tripStatus !=
                                           'Enroute' &&
                                       widget.tripResponse.tripStatus !=
-                                          'Created')
+                                          'Created' && widget.tripResponse.tripStatus !=
+                                          'Requested')
                                     IconButton(
                                       padding: EdgeInsets.zero,
                                       onPressed:

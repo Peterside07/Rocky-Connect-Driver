@@ -8,6 +8,7 @@ import 'package:rockyconnectdriver/widgets/utils.dart';
 
 import '../global/endpoints.dart';
 import '../models/app_alert.dart';
+import '../models/driver_model.dart';
 import '../models/user_model.dart';
 import '../pages/auth/sign_in.dart';
 import '../pages/home/home_screen.dart';
@@ -20,6 +21,7 @@ class GlobalController extends GetxController {
   var user = UserModel().obs;
   var car = CarModel().obs;
   var bank = BankModel().obs;
+  var driver = DriverModel().obs;
   TextEditingController oldPassword = TextEditingController(text: '');
   TextEditingController newPassword = TextEditingController(text: '');
   TextEditingController confirmPassword = TextEditingController(text: '');
@@ -169,6 +171,40 @@ class GlobalController extends GetxController {
     }
   }
 
+   void getDriverInfo() async {
+    final email = ctrl.email.text;
+    String encodedEmail = Uri.encodeComponent(email);
+
+    loading.value = true;
+    var res = await Api().get(
+      '${Endpoints.DRIVER_INFO}?email=$encodedEmail',
+    );
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      driver.value = DriverModel.fromJson(res.data);
+    } else {
+    }
+  }
+
+//unda
+    void getUserInfo() async {
+    final email = ctrl.email.text;
+
+    String encodedEmail = Uri.encodeComponent(email);
+
+    loading.value = true;
+    var response =
+        await Api().get('${Endpoints.USER_API}?email=$encodedEmail');
+    loading.value = false;
+
+    if (response.respCode == 0) {
+      print(response.data);
+      user.value = UserModel.fromJson(response.data);
+      setFieldsForEdit();
+    }
+  }
+
 //Update Account
   void updateAccount() async {
     var data = {
@@ -184,7 +220,7 @@ class GlobalController extends GetxController {
     loading.value = false;
 
     if (res.respCode == 0) {
-      //  getUserInfo();
+        getUserInfo();
       AppAlert(
         message: res.respDesc,
         type: AlertType.SUCCESS,

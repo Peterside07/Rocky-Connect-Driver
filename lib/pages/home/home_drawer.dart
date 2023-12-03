@@ -54,39 +54,46 @@ class HomeDrawer extends StatelessWidget {
                     ),
                     // backgroundImage: AssetImage(""),
                   ),
+                const  SizedBox(width: 5),
 
                   //This is the nested column that takes the name of the user
                   //Also it nest the Row for the Stars and the rating figures
 
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          globalCtrl.user.value.firstName ?? '',
-                          style: const TextStyle(
-                              fontSize: 20, color: Colors.white),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                size: 27,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "5.0",
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              )
-                            ],
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        globalCtrl.user.value.firstName ?? '',
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            size: 27,
+                            color: Colors.white,
                           ),
-                        )
-                      ],
-                    ),
+                          Text(
+                            globalCtrl.driver.value.rating.toString(),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text('No of ride:',
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white)),
+                          Text(
+                            globalCtrl.driver.value.noOfRides.toString(),
+                            style: const TextStyle(
+                                fontSize: 20, color: Colors.white),
+                          ),
+                        ],
+                      )
+                    ],
                   )
                 ],
               ),
@@ -131,7 +138,7 @@ class HomeDrawer extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      Get.to(() =>  NoticationPage());
+                      Get.to(() => NoticationPage());
                     },
                   ),
                 ),

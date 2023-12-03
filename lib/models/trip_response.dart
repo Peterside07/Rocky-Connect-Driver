@@ -42,7 +42,9 @@ class TripResponse {
     String? typeOfVehicle;
     String? driverLiscense;
     String? carPreferences;
-    String? deviceId;
+    String? riderDeviceId;
+    String? driverDeviceId;
+    dynamic isRated;
 
     TripResponse({
         this.id,
@@ -78,7 +80,9 @@ class TripResponse {
         this.typeOfVehicle,
         this.driverLiscense,
         this.carPreferences,
-        this.deviceId,
+        this.riderDeviceId,
+        this.driverDeviceId,
+        this.isRated,
     });
 
     factory TripResponse.fromJson(Map<String, dynamic> json) => TripResponse(
@@ -115,7 +119,9 @@ class TripResponse {
         typeOfVehicle: json["typeOfVehicle"],
         driverLiscense: json["driverLiscense"],
         carPreferences: json["carPreferences"],
-        deviceId: json["deviceID"],
+        riderDeviceId: json["riderDeviceID"],
+        driverDeviceId: json["driverDeviceID"],
+        isRated: json["isRated"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -152,6 +158,8 @@ class TripResponse {
         "typeOfVehicle": typeOfVehicle,
         "driverLiscense": driverLiscense,
         "carPreferences": carPreferences,
-        "deviceID": deviceId,
+        "riderDeviceID": riderDeviceId,
+        "driverDeviceID": driverDeviceId,
+        "isRated": isRated,
     };
 }

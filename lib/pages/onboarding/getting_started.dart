@@ -20,8 +20,9 @@ class GettingStartedPage extends StatelessWidget {
             padding: const EdgeInsets.only(top: 320.0),
             child: Center(
               child: Text(
-                "Rocky Connect",
-                style: GoogleFonts.tourney(fontSize: 45, color: Colors.white),
+                "Rocky Connect \n Driver",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.tourney(fontSize: 40, color: Colors.white),
               ),
             ),
           ),

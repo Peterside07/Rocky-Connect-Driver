@@ -42,6 +42,44 @@
           "other_platform_oauth_client": []
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772612027831:android:100e194bc8245818dca432",
+        "android_client_info": {
+          "package_name": "com.rocky.rockyconnectdriver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ-q4fGB49W25_5x33YvU1cG3PtyBJZSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772612027831:android:d73d543b59b344aedca432",
+        "android_client_info": {
+          "package_name": "com.rockyconnect.rockyconnectrider"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ-q4fGB49W25_5x33YvU1cG3PtyBJZSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
     }
   ],
   "configuration_version": "1"

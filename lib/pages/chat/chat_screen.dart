@@ -44,7 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
       'senderId': FirebaseAuth.instance.currentUser?.uid,
       'message': message,
       'timestamp': FieldValue.serverTimestamp(),
-    }).then((value) => FirebaseApi.sendPushNotification(widget.tripResponse.deviceId, message ));
+    }).then((value) => FirebaseApi.sendPushNotification(widget.tripResponse.riderDeviceId, message ));
   }
 
   

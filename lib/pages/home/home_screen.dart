@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               bottom: Radius.circular(40),
             )),
             title: Text(
-              'Welcome ${globalCtrl.user.value.firstName ?? ''}',
+              'Welcome Driver ${globalCtrl.user.value.firstName ?? ''}',
               style: const TextStyle(color: Colors.black),
             ),
             backgroundColor: Colors.white,
