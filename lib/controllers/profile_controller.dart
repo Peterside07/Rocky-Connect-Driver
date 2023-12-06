@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:rockyconnectdriver/controllers/signup_controller.dart';
 import 'package:rockyconnectdriver/models/bank_model.dart';
 import 'package:rockyconnectdriver/models/car_model.dart';
 import 'package:rockyconnectdriver/widgets/utils.dart';
@@ -14,7 +13,7 @@ import '../pages/auth/sign_in.dart';
 import '../pages/home/home_screen.dart';
 import '../services/api.dart';
 
-class GlobalController extends GetxController {
+class ProfileController extends GetxController {
   var barIndex = 0.obs;
   var tr = {}.obs;
   var token = ''.obs;
@@ -40,9 +39,7 @@ class GlobalController extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController phoneCtrl = TextEditingController();
 
-  TextEditingController acctNameu = TextEditingController();
-  TextEditingController acctNumberu = TextEditingController();
-  TextEditingController routeNumberu = TextEditingController();
+
   TextEditingController acctName = TextEditingController();
   TextEditingController acctNumber = TextEditingController();
   TextEditingController routeNumber = TextEditingController();
@@ -50,9 +47,6 @@ class GlobalController extends GetxController {
 
   var carList = <CarModel>[].obs;
   var bankList = <BankModel>[].obs;
-
-    var carRequiredString = ''.obs;
-
 
   var isLoading = false.obs;
   var password = ''.obs;
@@ -135,7 +129,6 @@ class GlobalController extends GetxController {
     carType.text = car.value.typeOfVehicle ?? '';
     plateNumber.text = car.value.plateNumber ?? '';
     driverLiscense.text = car.value.driverLiscense ?? '';
-    carPreferences.text = car.value.carPreferences ?? '';
   }
 
   void setBankForEdit() {
@@ -266,31 +259,7 @@ class GlobalController extends GetxController {
     }
   }
 
-  void addBank() async {
-      final ctrl = Get.put(SignupController());
-
-    var data = {
-      "email": ctrl.emailText.value,
-      "accountNumber": acctNumberu.text,
-      "routingNumber": routeNumberu.text,
-      "bankName": acctNameu.text,
-    };
-
-    loading.value = true;
-    var res = await Api().post(Endpoints.ADD_ACCOUNT, data);
-    loading.value = false;
-
-    if (res.respCode == 0) {
-      Get.offAll(() => SignIn());
-
-      AppAlert(
-        message: res.respDesc,
-        type: AlertType.SUCCESS,
-      ).showAlert();
-    } else {
-     // AppAlert(message: res.respDesc).showAlert();
-    }
-  }
+ 
 
   //Delete account
   void deleteAccount() async {

@@ -131,6 +131,8 @@ class TripController extends GetxController {
     var data = {
       'id': id,
       "reasonForCancel": reason,
+            'role': 2
+
     };
 
     loading.value = true;

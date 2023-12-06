@@ -37,7 +37,6 @@ class LoginController extends GetxController {
       'password': password.value,
       'app': 2,
       'deviceID': TokenService.fcmToken,
-
     };
 
     isLoading.value = true;
@@ -51,6 +50,9 @@ class LoginController extends GetxController {
       globalCtx.getCar();
       globalCtx.getBank();
       globalCtx.getDriverInfo();
+
+      print(globalCtx.car.value.carColor);
+      print(globalCtx.bank.value.accountNumber);
 
       AppAlert(
         message: res.respDesc,

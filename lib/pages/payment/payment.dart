@@ -125,7 +125,6 @@ class _PaymentPageState extends State<PaymentPage> {
                               controller: profile.routeNumber,
                               keyboardType: TextInputType.number,
                             ),
-                           
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -143,18 +142,21 @@ class _PaymentPageState extends State<PaymentPage> {
                     : Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Obx(
-          () => AppLoader(
-            isLoading: ctrl.loading.value,
-            child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [buildTripListByType(ctrl.approvedTrip)],
+                          () => AppLoader(
+                            isLoading: ctrl.loading.value,
+                            child: SingleChildScrollView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  buildTripListByType(ctrl.approvedTrip)
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-         )) ]),
+                        ))
+              ]),
         ),
       ),
     );

@@ -10,6 +10,7 @@ import 'package:rockyconnectdriver/widgets/inputs/app_input.dart';
 
 import '../../widgets/app_segment_item.dart';
 import '../../widgets/buttons/primary_button.dart';
+import '../../widgets/inputs/number_input.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -185,9 +186,15 @@ class _AccountPageState extends State<AccountPage> {
                                 color: Colors.grey,
                               ),
                             ),
-                            AppInput(
-                              controller: profile.carType,
+                            CarInput(
+                                placeholder: '',
+                      onValueChanged: (val) {
+                       profile.carType.text = val;
+                      profile.carRequiredString.value = val;
+                      },
+                      controller: profile.carType,
                             ),
+                            
                             Text(
                               "Car color",
                               style: GoogleFonts.inter(
@@ -215,10 +222,10 @@ class _AccountPageState extends State<AccountPage> {
                                 color: Colors.grey,
                               ),
                             ),
+                          
                             CarPreferenceInput(
                               controller: profile.carPreferences,
                               onValueChanged: (val) {
-                                //  profile.carTypeText.value = val;
                               },
                             ),
                             Padding(
@@ -249,7 +256,6 @@ final List<String> carPreferences = [
   '6 person',
   'No smoking',
   'Air conditioning',
-  'No weed',
   'Baby seat',
   'No eating',
   'WiFi',

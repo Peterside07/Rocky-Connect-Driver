@@ -26,6 +26,13 @@ class SignupController extends GetxController {
   TextEditingController carPlateNumberCtrl = TextEditingController(text: '');
   TextEditingController carColorCtrl = TextEditingController(text: '');
   TextEditingController carPrefenceCtrl = TextEditingController(text: '');
+  RxString selectedCarMake = RxString('');
+ RxString  selectedCarModel =RxString('');
+
+  TextEditingController acctName = TextEditingController();
+  TextEditingController acctNumber = TextEditingController();
+  TextEditingController routeNumber = TextEditingController();
+  TextEditingController acctType = TextEditingController();
 
   var phone = ''.obs;
   var password = ''.obs;
@@ -90,10 +97,7 @@ class SignupController extends GetxController {
 
   //Resend otp
   void resendOtp(int type) async {
-    var data = {
-      'userEmail': emailText.value,
-      'otptype': type
-    };
+    var data = {'userEmail': emailText.value, 'otptype': type};
 
     loading.value = true;
     var res = await Api().post(Endpoints.RESENDOTP, data);
@@ -160,7 +164,7 @@ class SignupController extends GetxController {
   void forgetPasswordVerifyEmail() async {
     var data = {
       "email": emailText.value,
-       "code": otp.value,
+      "code": otp.value,
     };
 
     loading.value = true;
@@ -197,6 +201,14 @@ class SignupController extends GetxController {
     loading.value = false;
 
     if (res.respCode == 0) {
+      carMakeCtrl.clear();
+      carModelCtrl.clear();
+      carColorCtrl.clear();
+      carPlateNumberCtrl.clear();
+      carTypeCtrl.clear();
+      driverLiscenseCtrl.clear();
+      carPrefenceCtrl.clear();
+
       Get.to(() => UpdateBank());
 
       AppAlert(
@@ -208,7 +220,7 @@ class SignupController extends GetxController {
     }
   }
 
-   void verifyPasswordOtp() async {
+  void verifyPasswordOtp() async {
     var data = {
       "email": emailText.value,
       "code": otp.value,
@@ -223,7 +235,6 @@ class SignupController extends GetxController {
         message: res.respDesc,
         type: AlertType.SUCCESS,
       ).showAlert();
-
     } else {
       AppAlert(message: res.respDesc).showAlert();
     }
@@ -254,6 +265,36 @@ class SignupController extends GetxController {
       ).showAlert();
     } else {
       AppAlert(message: res.respDesc).showAlert();
+    }
+  }
+
+  void addBank() async {
+    final ctrl = Get.put(SignupController());
+
+    var data = {
+      "email": ctrl.emailText.value,
+      "accountNumber": acctNumber.text,
+      "routingNumber": routeNumber.text,
+      "bankName": acctName.text,
+    };
+
+    loading.value = true;
+    var res = await Api().post(Endpoints.ADD_ACCOUNT, data);
+    loading.value = false;
+
+    if (res.respCode == 0) {
+      acctNumber.clear();
+      routeNumber.clear();
+      acctName.clear();
+
+      Get.offAll(() => SignIn());
+
+      AppAlert(
+        message: res.respDesc,
+        type: AlertType.SUCCESS,
+      ).showAlert();
+    } else {
+      // AppAlert(message: res.respDesc).showAlert();
     }
   }
 }

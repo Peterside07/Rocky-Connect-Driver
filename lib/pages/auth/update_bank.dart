@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rockyconnectdriver/theme/colors.dart';
 
-import '../../controllers/global_controller.dart';
+import '../../controllers/signup_controller.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../../widgets/inputs/app_input.dart';
 import 'sign_in.dart';
@@ -11,7 +11,7 @@ import 'sign_in.dart';
 class UpdateBank extends StatelessWidget {
   UpdateBank({super.key});
 
-  final profile = Get.put(GlobalController());
+  final ctrl = Get.put(SignupController());
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class UpdateBank extends StatelessWidget {
                           ),
                         ),
                         AppInput(
-                          controller: profile.acctName,
+                          controller: ctrl.acctName,
                         ),
                         Text(
                           "Account number ",
@@ -77,7 +77,7 @@ class UpdateBank extends StatelessWidget {
                           ),
                         ),
                         AppInput(
-                          controller: profile.acctNumber,
+                          controller: ctrl.acctNumber,
                           keyboardType: TextInputType.number,
                         ),
                         Text(
@@ -88,7 +88,7 @@ class UpdateBank extends StatelessWidget {
                           ),
                         ),
                         AppInput(
-                          controller: profile.routeNumber,
+                          controller: ctrl.routeNumber,
                           keyboardType: TextInputType.number,
                         ),
                         Row(
@@ -98,8 +98,8 @@ class UpdateBank extends StatelessWidget {
                               child: Obx(
                                 () => PrimaryButton(
                                   label: 'Save',
-                                  isLoading: profile.loading.value,
-                                  onPressed: () => profile.addBank(),
+                                  isLoading: ctrl.loading.value,
+                                  onPressed: () => ctrl.addBank(),
                                 ),
                               ),
                             ),

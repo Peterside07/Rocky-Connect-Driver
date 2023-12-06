@@ -74,7 +74,6 @@ class UpdateCar extends StatelessWidget {
                         AppInput(
                           placeholder: 'Plate Number'.tr,
                           controller: ctrl.carPlateNumberCtrl,
-                          keyboardType: TextInputType.number,
                         ),
                         AppInput(
                           placeholder: 'Color of Vehicle'.tr,
@@ -102,7 +101,7 @@ class UpdateCar extends StatelessWidget {
                               child: PrimaryButton(
                                     label: 'Skip',
                                     onPressed: () {
-                                      Get.to(UpdateBank());
+                                      Get.to(() => UpdateBank());
                                     }
                               ),
                             )
